@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="-DCMAKE_TOOLCHAIN_FILE=C:\Users\youss\.vcpkg-clion\vcpkg\scripts\buildsystems\vcpkg.cmake" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="aefada74-1f27-4131-b05b-d6a8266be2c2" name="Changes" comment="Updated README.md" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2bXRiDnABudZxI51uQjag00bb8j" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aefada74-1f27-4131-b05b-d6a8266be2c2" name="Changes" comment="" />
+      <created>1706359561982</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1706359561982</updated>
+      <workItem from="1706359563603" duration="1085000" />
+      <workItem from="1706364865795" duration="908000" />
+    </task>
+    <task id="LOCAL-00001" summary="Init Repo">
+      <option name="closed" value="true" />
+      <created>1706360590178</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1706360590178</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Init Repo">
+      <option name="closed" value="true" />
+      <created>1706360620875</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1706360620875</updated>
+    </task>
+    <task id="LOCAL-00003" summary="removed debug files">
+      <option name="closed" value="true" />
+      <created>1706364922415</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706364922415</updated>
+    </task>
+    <task id="LOCAL-00004" summary="removed debug files">
+      <option name="closed" value="true" />
+      <created>1706365002151</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706365002151</updated>
+    </task>
+    <task id="LOCAL-00005" summary="removed debug files">
+      <option name="closed" value="true" />
+      <created>1706365005378</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706365005378</updated>
+    </task>
+    <task id="LOCAL-00006" summary="removed debug files">
+      <option name="closed" value="true" />
+      <created>1706365056735</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1706365056735</updated>
+    </task>
+    <task id="LOCAL-00007" summary="removed debug files">
+      <option name="closed" value="true" />
+      <created>1706365060509</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1706365060509</updated>
+    </task>
+    <task id="LOCAL-00008" summary="removed debug files">
+      <option name="closed" value="true" />
+      <created>1706365122787</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1706365122787</updated>
+    </task>
+    <task id="LOCAL-00009" summary="removed debug files">
+      <option name="closed" value="true" />
+      <created>1706365146657</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1706365146657</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Merge branch 'main' of https://github.com/Exo1i/MagiskHluda&#10;&#10;# Conflicts:&#10;#&#9;.gitignore">
+      <option name="closed" value="true" />
+      <created>1706365173589</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1706365173589</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Updated README.md">
+      <option name="closed" value="true" />
+      <created>1706365696982</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1706365696982</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Init Repo" />
+    <MESSAGE value="removed debug files" />
+    <MESSAGE value="Merge branch 'main' of https://github.com/Exo1i/MagiskHluda&#10;&#10;# Conflicts:&#10;#&#9;.gitignore" />
+    <MESSAGE value="Updated README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated README.md" />
+  </component>
+</project>
