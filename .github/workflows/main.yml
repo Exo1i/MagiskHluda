@@ -29,12 +29,26 @@ jobs:
           ./MagiskHluda
           zip -r MagiskHluda.zip ./tmp/
           ls -la
-          echo "NEW_TAG=$(cat currentTag.txt)" >> $env:GITHUB_ENV
+          TAG=$(cat currentTag.txt)
+          echo "NEW_TAG=$TAG" >> $GITHUB_ENV
+          
+      - name: Get latest release of hluda and latest version magisk module built
+        run: |
+          sudo apt install jq
+          LATESTHLUDARELEASETAG=$(curl -s https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest | jq -r '.tag_name')
+          LATESTMODULETAG=$(curl -s https://api.github.com/repos/exo1i/MagiskHluda2/releases/latest | jq -r '.tag_name')
+          echo "LATESTHLUDARELEASETAG=${LATESTHLUDARELEASETAG}" >> $GITHUB_ENV
+          echo "latest release: ${LATESTHLUDARELEASETAG}"
+          echo "LATESTMODULETAG=${LATESTMODULETAG}" >> $GITHUB_ENV
+          echo "latest module tag: ${LATESTMODULETAG}"
+          
       - name: Release
-        uses: ncipollo/release-action@v1.10.0
+        if: ${{env.LATESTMODULETAG != env.LATESTHLUDARELEASETAG}}
+        uses: ncipollo/release-action@v1.13.0
         with:
           artifacts: /release/*.zip
-          tag: ${{ env.currentTag }}
+          name: "Magisk Module for Hluda Server ${{ env.NEW_TAG }}" 
+          tag: "${{ env.NEW_TAG }}"
           body: https://github.com/hzzheyang/strongR-frida-android/releases/latest
           generateReleaseNotes: false
           omitBody: false
