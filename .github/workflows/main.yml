@@ -27,7 +27,7 @@ jobs:
           cd release
           cmake --build .
           ./MagiskHluda
-          zip -jr MagiskHluda.zip ./tmp/*
+          zip -r MagiskHluda.zip ./tmp/*
           ls -la
           TAG=$(cat currentTag.txt)
           echo "NEW_TAG=$TAG" >> $GITHUB_ENV
