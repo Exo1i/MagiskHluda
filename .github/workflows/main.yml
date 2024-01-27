@@ -29,7 +29,7 @@ jobs:
           ./MagiskHluda
           zip -r MagiskHluda.zip ./tmp/
           ls -la
-          echo "NEW_TAG=$(cat currentTag.txt)" << $env:GITHUB_ENV
+          echo "NEW_TAG=$(cat currentTag.txt)" >> $env:GITHUB_ENV
       - name: Release
         uses: ncipollo/release-action@v1.10.0
         with:
