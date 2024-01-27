@@ -1,10 +1,9 @@
 name: CI
 
 on:
-  push:
-    branches: ["master"]
+  schedule:
+    - cron: "0 */12 * * *"
   workflow_dispatch:
-  repository_dispatch:
 permissions:
   contents: write
 jobs:
