@@ -31,7 +31,6 @@ jobs:
           ls -la
           echo "NEW_TAG=$(cat currentTag.txt)" << $env:GITHUB_ENV
       - name: Release
-        if: hashFiles('/release/currentTag.txt') != ''
         uses: ncipollo/release-action@v1.10.0
         with:
           artifacts: /release/*.zip
