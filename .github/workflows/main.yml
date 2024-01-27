@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+  repository_dispatch:
+permissions:
+  contents: write
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Create Release Archive and Set Tag Information
+        run: |
+          git clone https://github.com/Microsoft/vcpkg.git
+          cd vcpkg
+          ./bootstrap-vcpkg.sh
+          ./vcpkg install rapidjson restclient-cpp
+          cd ..
+          mkdir release 
+          cmake -B release -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
+          cd release
+          cmake --build .
+          ./MagiskHluda
+          zip -r MagiskHluda.zip ./tmp/
+          ls -la
+          echo "NEW_TAG=$(cat currentTag.txt)" << $env:GITHUB_ENV
+      - name: Release
+        if: hashFiles('/release/currentTag.txt') != ''
+        uses: ncipollo/release-action@v1.10.0
+        with:
+          artifacts: /release/*.zip
+          tag: ${{ env.currentTag }}
+          body: https://github.com/hzzheyang/strongR-frida-android/releases/latest
+          generateReleaseNotes: false
+          omitBody: false
+          omitBodyDuringUpdate: false
+          omitDraftDuringUpdate: false
+          omitName: false
+          omitNameDuringUpdate: false
+          omitPrereleaseDuringUpdate: false
+          removeArtifacts: false
+          replacesArtifacts: true
+          token: ${{ secrets.GITHUB_TOKEN }}
