@@ -13,8 +13,18 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
-      
+      - name: Get latest release of hluda and latest version magisk module built
+        run: |
+          sudo apt install jq
+          LATESTHLUDARELEASETAG=$(curl -s https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest | jq -r '.tag_name')
+          LATESTMODULETAG=$(curl -s https://api.github.com/repos/Exo1i/MagiskHluda/releases/latest | jq -r '.tag_name')
+          echo "LATESTHLUDARELEASETAG=${LATESTHLUDARELEASETAG}" >> $GITHUB_ENV
+          echo "latest release: ${LATESTHLUDARELEASETAG}"
+          echo "LATESTMODULETAG=${LATESTMODULETAG}" >> $GITHUB_ENV
+          echo "latest module tag: ${LATESTMODULETAG}"
+
       - name: Create Release Archive and Set Tag Information
+        if: ${{env.LATESTMODULETAG != env.LATESTHLUDARELEASETAG && env.LATESTHLUDARELEASETAG != 'null' && env.LATESTMODULETAG !='null'}}
         run: |
           git clone https://github.com/Microsoft/vcpkg.git
           cd vcpkg
@@ -29,23 +39,13 @@ jobs:
           (cd ./tmp && zip -r ../Hluda.zip ./*)
           TAG=$(cat currentTag.txt)
           echo "NEW_TAG=$TAG" >> $GITHUB_ENV
-          
-      - name: Get latest release of hluda and latest version magisk module built
-        run: |
-          sudo apt install jq
-          LATESTHLUDARELEASETAG=$(curl -s https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest | jq -r '.tag_name')
-          LATESTMODULETAG=$(curl -s https://api.github.com/repos/Exo1i/MagiskHluda/releases/latest | jq -r '.tag_name')
-          echo "LATESTHLUDARELEASETAG=${LATESTHLUDARELEASETAG}" >> $GITHUB_ENV
-          echo "latest release: ${LATESTHLUDARELEASETAG}"
-          echo "LATESTMODULETAG=${LATESTMODULETAG}" >> $GITHUB_ENV
-          echo "latest module tag: ${LATESTMODULETAG}"
-          
+
       - name: Release
-        if: ${{env.LATESTMODULETAG != env.LATESTHLUDARELEASETAG}}
+        if: ${{env.LATESTMODULETAG != env.LATESTHLUDARELEASETAG && env.LATESTHLUDARELEASETAG != 'null' && env.LATESTMODULETAG !='null'}}
         uses: ncipollo/release-action@v1.13.0
         with:
           artifacts: ./release/*.zip
-          name: "Magisk Module for Hluda Server ${{ env.NEW_TAG }}" 
+          name: "Magisk Module for Hluda Server ${{ env.NEW_TAG }}"
           tag: "${{ env.NEW_TAG }}"
           body: https://github.com/hzzheyang/strongR-frida-android/releases/latest
           generateReleaseNotes: false
