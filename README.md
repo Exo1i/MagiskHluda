@@ -2,7 +2,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/Exo1i/MagiskHluda)
 ![GitHub downloads](https://img.shields.io/github/downloads/Exo1i/magiskhluda/total)
 
-**🌟 This a magisk module based on [StrongR frida](https://github.com/hzzheyang/strongR-frida-android) which a more undetectable version of [frida](https://github.com/frida/frida/releases).**
+**🌟 This a magisk module based on [StrongR frida](https://github.com/hzzheyang/strongR-frida-android) which is a more undetectable version of [frida](https://github.com/frida/frida/releases).**
 
 **🌟 It basically sets up hluda (StrongR frida) to start on  boot for you.**
 
