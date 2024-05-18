@@ -7,10 +7,10 @@ on:
 permissions:
   contents: write
 jobs:
-  Test:
+  runner:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
     steps:
       - uses: actions/checkout@v3
       - name: Get latest release of hluda and latest version magisk module built
@@ -35,7 +35,11 @@ jobs:
           cmake -B release -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
           cd release
           cmake --build .
-          ./MagiskHluda
+          ./MagiskHluda 1> errLog.txt
+          if [[ -s errLog.txt ]]; then
+          cat errLog.txt
+          exit 1
+          fi
           (cd ./tmp && zip -r ../Hluda.zip ./*)
           TAG=$(cat currentTag.txt)
           echo "NEW_TAG=$TAG" >> $GITHUB_ENV
