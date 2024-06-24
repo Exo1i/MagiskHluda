@@ -44,7 +44,7 @@ to [Florida](https://github.com/hzzheyang/strongR-frida-android)**
    ```bash
    ./vcpkg install rapidjson restclient-cpp
 
-2. **Run the code:**  Run main.cpp in your preferred IDE (Clion or Visual Studio recommended).
+2. **Run the code:** Run main.cpp in your preferred IDE (Clion or Visual Studio recommended).
 
 ## **Credits:**
 
