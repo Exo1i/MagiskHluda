@@ -4,7 +4,7 @@
 ![GitHub downloads](https://img.shields.io/github/downloads/Exo1i/magiskhluda/total)
 
 **🌟 This a magisk module based on [Florida](https://github.com/hzzheyang/strongR-frida-android) which is a more
-undetectable version of [Frida](https://github.com/frida/frida/releases).**
+undetectable version of [Frida](https://github.com/frida/frida/).**
 
 **🌟 It basically sets up [Florida](https://github.com/Ylarod/Florida) to start on boot for you.**
 
@@ -21,7 +21,7 @@ undetectable version of [Frida](https://github.com/frida/frida/releases).**
 - x86
 - x86_64
 
-## **This project switched temporarily from [StrongR-Frida](https://github.com/hzzheyang/strongR-frida-android) to [Florida](https://github.com/hzzheyang/strongR-frida-android)**
+## **This project switched temporarily from [StrongR-Frida](https://github.com/hzzheyang/strongR-frida-android) to [Florida](https://github.com/Ylarod/Florida)**
 
 ## **Getting Started:**
 
