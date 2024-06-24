@@ -21,8 +21,7 @@ undetectable version of [Frida](https://github.com/frida/frida/releases).**
 - x86
 - x86_64
 
-## **This project switched temporarily from [StrongR-Frida](https://github.com/hzzheyang/strongR-frida-android)
-to [Florida](https://github.com/hzzheyang/strongR-frida-android)**
+## **This project switched temporarily from [StrongR-Frida](https://github.com/hzzheyang/strongR-frida-android) to [Florida](https://github.com/hzzheyang/strongR-frida-android)**
 
 ## **Getting Started:**
 
