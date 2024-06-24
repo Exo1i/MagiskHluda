@@ -10,7 +10,7 @@ using namespace std;
 
 class utils {
 public:
-    static string lastestHludaTag;
+    static string latestFloridaTag;
     utils();
 
     static void copyModuleTemplate();
@@ -21,7 +21,7 @@ public:
 
     static void download(const string &aarch);
 
-    static void downloadHludaServers();
+    static void downloadFloridaServers();
 };
 
 #endif //MAGISKHLUDA_UTILS_H

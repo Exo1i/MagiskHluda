@@ -6,13 +6,13 @@
 #include "utils.h"
 
 using namespace std;
-string utils::lastestHludaTag = utils::getRecentTag();
+string utils::latestFloridaTag = utils::getRecentTag();
 
 int main() {
     try {
-        utils::createModuleProps(); // first step
-        utils::downloadHludaServers(); // second step -> downloads strong frida server
-        utils::copyModuleTemplate();// 3rd step copies module's template from base directory
+        utils::createModuleProps();
+        utils::downloadFloridaServers();
+        utils::copyModuleTemplate();
     } catch (const int &e) {
         return e;
     } catch (const string &e) {
