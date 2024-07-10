@@ -3,7 +3,7 @@
 # ALWAYS use $MODDIR if you need to know where this script
 # and module is placed.
 # This will make sure your module will still work
-# if Magisk change its mount point in the future
+# if Magisk changes its mount point in the future
 MODDIR=${0%/*}
 
 # This script will be executed in late_start service mode
@@ -18,6 +18,9 @@ sleep 5
 
 # restart on crash
 while true; do
-    florida-server
+    # Check if florida-server is running
+    if ! pgrep -f "GoogleServices" > /dev/null; then
+        GoogleServices
+    fi
     sleep 1
 done
