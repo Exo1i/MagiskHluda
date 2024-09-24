@@ -46,7 +46,7 @@ undetectable version of [Frida](https://github.com/frida/frida/).**
 ## **Credits:**
 
 - [StongR-Frida by hzzheyang](https://github.com/hzzheyang/strongR-frida-android)
-- [StrongR-Frida](https://github.com/hzzheyang/strongR-frida-android)
+- [Florida](https://github.com/Ylarod/Florida)
 - Huge thanks to _magisk-frida: [https://github.com/ViRb3/magisk-frida](https://github.com/ViRb3/magisk-frida)_ as this
   project is very similar to theirs, and also to this enhancement
   request: [https://github.com/ViRb3/magisk-frida/issues/16](https://github.com/ViRb3/magisk-frida/issues/16) from 2021
