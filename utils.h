@@ -19,7 +19,7 @@ public:
     static string getRecentTag();
 
 
-    static void downloadFloridaServers();
+    static void downloadServers();
 };
 
 #endif //MAGISKHLUDA_UTILS_H

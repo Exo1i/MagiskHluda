@@ -70,7 +70,7 @@ void download(const std::string &aarch) {
                "s\n";
 }
 
-void utils::downloadFloridaServers() {
+void utils::downloadServers() {
     fs::create_directories("tmp/bin");
     const std::vector<std::string> archs = {"arm", "arm64", "x86", "x86_64"};
 

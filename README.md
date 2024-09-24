@@ -1,17 +1,17 @@
-## **Florida on Boot: Unleash Florida's Power with Enhanced Undetectability**
+## **Hluda on Boot: Unleash Hluda's Power with Enhanced Undetectability**
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Exo1i/MagiskHluda)
 ![GitHub downloads](https://img.shields.io/github/downloads/Exo1i/magiskhluda/total)
 
-**🌟 This a magisk module based on [Florida](https://github.com/hzzheyang/strongR-frida-android) which is a more
+**🌟 This a magisk module based on [StrongR-Frida](https://github.com/hzzheyang/strongR-frida-android) which is a more
 undetectable version of [Frida](https://github.com/frida/frida/).**
 
-**🌟 It basically sets up [Florida](https://github.com/Ylarod/Florida) to start on boot for you.**
+**🌟 It basically sets up [StrongR-Frida](https://github.com/hzzheyang/strongR-frida-android) to start on boot for you.**
 
 ## **Meet your stealthy companion:** ️‍
 
 - **Powerful toolkit for dynamic analysis, reverse engineering, and security testing.**
-- **Florida takes it to the next level with a more undetectable frida-server for Android.**
+- **Hluda takes it to the next level with a more undetectable frida-server for Android.**
 - **Stay under the radar while you explore and manipulate apps like a pro.**
 
 ## **Supported Architectures:** ️
@@ -21,11 +21,9 @@ undetectable version of [Frida](https://github.com/frida/frida/).**
 - x86
 - x86_64
 
-## **This project switched temporarily from [StrongR-Frida](https://github.com/hzzheyang/strongR-frida-android) to [Florida](https://github.com/Ylarod/Florida)**
-
 ## **Getting Started:**
 
-1. **Grab the latest release:**  Head over to the releases page and download Florida.zip.
+1. **Grab the latest release:**  Head over to the releases page and download the latest zip.
 2. **Install with Magisk:** ✨ Use Magisk to seamlessly install the module.
 
 ## **Always Up-to-Date:**
@@ -48,13 +46,13 @@ undetectable version of [Frida](https://github.com/frida/frida/).**
 ## **Credits:**
 
 - [StongR-Frida by hzzheyang](https://github.com/hzzheyang/strongR-frida-android)
-- [Florida by Ylarod](https://github.com/Ylarod/Florida)
+- [StrongR-Frida](https://github.com/hzzheyang/strongR-frida-android)
 - Huge thanks to _magisk-frida: [https://github.com/ViRb3/magisk-frida](https://github.com/ViRb3/magisk-frida)_ as this
   project is very similar to theirs, and also to this enhancement
   request: [https://github.com/ViRb3/magisk-frida/issues/16](https://github.com/ViRb3/magisk-frida/issues/16) from 2021
   on ViRb3's module.
 
-**Ready to explore with enhanced stealth? Get started with Florida today!**
+**Ready to explore with enhanced stealth? Get started with Hluda today!**
 
 ## **Still Being Detected?**
 

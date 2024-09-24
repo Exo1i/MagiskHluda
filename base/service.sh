@@ -14,7 +14,7 @@ done
 # ensure boot has actually completed
 sleep 5
 
-# restart on crash, but only if florida-server is not running
+# restart on crash
 while true; do
     if ! pgrep -x "hluda" > /dev/null; then
         hluda -D

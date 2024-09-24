@@ -8,7 +8,7 @@ int main() {
     try {
         RestClient::init();
         utils::createModuleProps();
-        utils::downloadFloridaServers();
+        utils::downloadServers();
         utils::copyModuleTemplate();
         RestClient::disable();
         return 0;

@@ -41,7 +41,7 @@ jobs:
             exit 1
           fi
           echo "MagiskHluda succeeded"
-          (cd ./tmp && zip -r ../Magisk-Florida-$LATESTHLUDARELEASETAG.zip ./*)
+          (cd ./tmp && zip -r ../Magisk-Hluda-$LATESTHLUDARELEASETAG.zip ./*)
           TAG=$(cat currentTag.txt)
           echo "NEW_TAG=$TAG" >> $GITHUB_ENV
 
