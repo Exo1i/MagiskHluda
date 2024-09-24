@@ -35,11 +35,12 @@ jobs:
           cmake -B release -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
           cd release
           cmake --build .
-          ./MagiskHluda 1> errLog.txt
-          if [[ -s errLog.txt ]]; then
-          cat errLog.txt
-          exit 1
+          ./MagiskHluda
+          if [[ $? -ne 0 ]]; then
+            echo "MagiskHluda failed with exit code $?"
+            exit 1
           fi
+          echo "MagiskHluda succeeded"
           (cd ./tmp && zip -r ../Magisk-Florida-$LATESTHLUDARELEASETAG.zip ./*)
           TAG=$(cat currentTag.txt)
           echo "NEW_TAG=$TAG" >> $GITHUB_ENV
@@ -49,9 +50,9 @@ jobs:
         uses: ncipollo/release-action@v1.13.0
         with:
           artifacts: ./release/*.zip
-          name: "Magisk Module for Florida Server ${{ env.NEW_TAG }}"
+          name: "Magisk Module for Hluda Server ${{ env.NEW_TAG }}"
           tag: "${{ env.NEW_TAG }}"
-          body: https://github.com/exo1i/florida/releases/latest
+          body: "${{env.LATESTHLUDARELEASETAG}} released!"
           generateReleaseNotes: false
           omitBody: false
           omitBodyDuringUpdate: false

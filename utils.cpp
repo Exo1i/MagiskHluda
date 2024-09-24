@@ -1,82 +1,106 @@
 #include <fstream>
 #include <filesystem>
+#include <iostream>
+#include <stdexcept>
+#include <vector>
+#include <chrono>
 #include "restclient-cpp/connection.h"
-#include "iostream"
 #include "restclient-cpp/restclient.h"
 #include "rapidjson/document.h"
 #include "utils.h"
 
-using namespace std;
 namespace fs = std::filesystem;
 
+std::string utils::getRecentTag() {
+    const std::string url = "https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest";
+    RestClient::Response response = RestClient::get(url);
 
-utils::utils() {}
-
-string utils::getRecentTag() {
-    RestClient::Response response = RestClient::get(
-            "https://api.github.com/repos/Exo1i/Florida/releases/latest");
-    rapidjson::Document d;
-    if (response.code == 200)
-        d.Parse(response.body.c_str());
-    else {
-        cout << "An Error code has happen: " + to_string(response.code) + response.body << endl;
-        throw response.code;
+    if (response.code != 200) {
+        throw std::runtime_error("HTTP Error: " + std::to_string(response.code) + " " + response.body);
     }
-    fstream("currentTag.txt", ios::out) << d["tag_name"].GetString();
-    return d["tag_name"].GetString();
 
+    rapidjson::Document d;
+    d.Parse(response.body.c_str());
+
+    if (!d.HasMember("tag_name") || !d["tag_name"].IsString()) {
+        throw std::runtime_error("Invalid JSON response: missing or invalid 'tag_name'");
+    }
+
+    std::string tag = d["tag_name"].GetString();
+    std::ofstream("currentTag.txt") << tag;
+    return tag;
 }
 
-void utils::download(const string &aarch) {
-    string url = "https://github.com/Exo1i/Florida/releases/download/" + latestFloridaTag +
-                 "/florida-server-" + latestFloridaTag + "-android-" + aarch + ".gz";
-    RestClient::init();
-    RestClient::Connection *pConnection = new RestClient::Connection(url);
+void download(const std::string &aarch) {
+
+    auto start = std::chrono::system_clock::now();
+
+    std::cout << "Starting To Downloaded hluda for arch: " + aarch + "\n";
+
+    std::string url = "https://github.com/hzzheyang/strongR-frida-android/releases/download/" + utils::latestHludaTag +
+                      "/hluda-server-" + utils::latestHludaTag + "-android-" + aarch + ".gz";
+
+    std::unique_ptr<RestClient::Connection> pConnection(new RestClient::Connection(url));
     pConnection->FollowRedirects(true);
     RestClient::Response response = pConnection->get("/");
-    fstream downloadedFile = fstream("tmp/files/florida-" + aarch + ".gz",
-                                     ios::out | ios::binary);
-    if (downloadedFile.is_open() && downloadedFile.good() && response.code == 200) {
-        downloadedFile << response.body;
-        downloadedFile.close();
-        delete pConnection;
-    } else {
-        delete pConnection;
-        throw "An error occurred: baseURl:" + pConnection->GetInfo().baseUrl + "\nand response body: " + response.body +
-              "\nand response code : " + to_string(response.code);
-    };
 
+    if (response.code != 200) {
+        throw std::runtime_error("Download failed: " + std::to_string(response.code) + " " + response.body);
+    }
+    std::string filename;
+    if (aarch == "x86_64")
+        filename = "tmp/bin/hluda-x64.gz";
+    else
+        filename = "tmp/bin/hluda-" + aarch + ".gz";
 
-};
+    std::ofstream downloadedFile(filename, std::ios::out | std::ios::binary);
+
+    if (!downloadedFile) {
+        throw std::runtime_error("Failed to open file for writing: " + filename);
+    }
+
+    downloadedFile.write(response.body.c_str(), response.body.length());
+
+    auto end = std::chrono::system_clock::now();
+
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    std::cout
+            << "Successfully Downloaded hluda for arch: " + aarch + ". Took " + to_string(elapsed_seconds.count()) +
+               "s\n";
+}
 
 void utils::downloadFloridaServers() {
-    fs::create_directory("tmp/files");
-    for (const string &aarch: {"arm", "arm64", "x86", "x86_64"}) {
+    fs::create_directories("tmp/bin");
+    const std::vector<std::string> archs = {"arm", "arm64", "x86", "x86_64"};
+
+    for (const auto &aarch: archs) {
         try {
             download(aarch);
-        } catch (const string &errMsg) {
-            cout << errMsg;
+        } catch (const std::exception &e) {
+            std::cerr << "Error downloading " << aarch << ": " << e.what() << std::endl;
+            throw std::runtime_error("Error downloading " + aarch + ": " + e.what());
         }
     }
 }
 
 void utils::createModuleProps() {
     fs::create_directory("tmp");
-    fstream moduleProps = fstream("tmp/module.prop", ios::out);
-    if (moduleProps.is_open()) {
-        moduleProps << "id=magisk-Florida\n"
-                       "name=MagiskFlorida\n" <<
-                    "version=" << latestFloridaTag.substr(0, latestFloridaTag.find('-')) << endl;
-        moduleProps <<
-                    "versionCode=" << latestFloridaTag.substr(0, latestFloridaTag.find('.')) << endl <<
-                    "author=Exo1i - Enovella - Ylarod - The Community\n"
-                    "description=Runs frida-server on boot\n";
+    std::ofstream moduleProps("tmp/module.prop");
+
+    if (!moduleProps) {
+        throw std::runtime_error("Failed to open module.prop for writing");
     }
-    moduleProps.close();
+
+    moduleProps << "id=magisk-hluda\n"
+                << "name=StrongR-Frida on Boot\n"
+                << "version=" << latestHludaTag.substr(0, latestHludaTag.find('-')) << '\n'
+                << "versionCode=" << latestHludaTag.substr(0, latestHludaTag.find('.')) << '\n'
+                << "author=The Community & Exo1i\n"
+                << "description=Runs frida-server on boot\n";
 }
 
 void utils::copyModuleTemplate() {
-    string basePath = "../base/";
+    const std::string basePath = "../base/";
     fs::copy(basePath, "tmp/", fs::copy_options::recursive);
 }
-

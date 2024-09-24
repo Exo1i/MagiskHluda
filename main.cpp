@@ -1,22 +1,20 @@
-//
-// Created by youss on 1/25/2024.
-//
-
-#include "iostream"
 #include "utils.h"
+#include <iostream>
+#include "restclient-cpp/restclient.h"
 
-using namespace std;
-string utils::latestFloridaTag = utils::getRecentTag();
+std::string utils::latestHludaTag = utils::getRecentTag();
 
 int main() {
     try {
+        RestClient::init();
         utils::createModuleProps();
         utils::downloadFloridaServers();
         utils::copyModuleTemplate();
-    } catch (const int &e) {
-        return e;
-    } catch (const string &e) {
-        cout << e;
-        return -1;
+        RestClient::disable();
+        return 0;
+    } catch (const std::exception &e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        RestClient::disable();
+        return 1;
     }
 }

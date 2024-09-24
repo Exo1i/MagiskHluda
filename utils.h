@@ -10,8 +10,7 @@ using namespace std;
 
 class utils {
 public:
-    static string latestFloridaTag;
-    utils();
+    static string latestHludaTag;
 
     static void copyModuleTemplate();
 
@@ -19,7 +18,6 @@ public:
 
     static string getRecentTag();
 
-    static void download(const string &aarch);
 
     static void downloadFloridaServers();
 };
