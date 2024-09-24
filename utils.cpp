@@ -93,10 +93,10 @@ void utils::createModuleProps() {
     }
 
     moduleProps << "id=magisk-hluda\n"
-                << "name=StrongR-Frida on Boot\n"
+                << "name=StrongR-Frida Server on Boot\n"
                 << "version=" << latestHludaTag.substr(0, latestHludaTag.find('-')) << '\n'
                 << "versionCode=" << latestHludaTag.substr(0, latestHludaTag.find('.')) << '\n'
-                << "author=The Community & Exo1i\n"
+                << "author=The Community - hzzheyang - Ylarod - Exo1i\n"
                 << "description=Runs frida-server on boot\n";
 }
 

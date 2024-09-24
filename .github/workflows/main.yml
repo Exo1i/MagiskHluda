@@ -16,7 +16,7 @@ jobs:
       - name: Get latest release of hluda and latest version magisk module built
         run: |
           sudo apt install jq
-          LATESTHLUDARELEASETAG=$(curl -s https://api.github.com/repos/exo1i/florida/releases/latest | jq -r '.tag_name')
+          LATESTHLUDARELEASETAG=$(curl -s https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest | jq -r '.tag_name')
           LATESTMODULETAG=$(curl -s https://api.github.com/repos/Exo1i/MagiskHluda/releases/latest | jq -r '.tag_name')
           echo "LATESTHLUDARELEASETAG=${LATESTHLUDARELEASETAG}" >> $GITHUB_ENV
           echo "latest release: ${LATESTHLUDARELEASETAG}"
