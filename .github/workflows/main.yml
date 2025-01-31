@@ -5,7 +5,42 @@ on:
 permissions:
   contents: write
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache vcpkg packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            vcpkg
+            ~/vcpkg/installed
+          key: ${{ runner.os }}-vcpkg-${{ hashFiles('**/vcpkg.json', '**/vcpkg-configuration.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-
+      - name: Setup vcpkg if not cached
+        run: |
+          if [ ! -d "vcpkg" ]; then
+            git clone https://github.com/Microsoft/vcpkg.git
+            cd vcpkg
+            ./bootstrap-vcpkg.sh
+           ./vcpkg install rapidjson restclient-cpp
+            cd ..
+          fi
+
+      - name: Setup environment and run MagiskHluda
+        run: |
+          sudo apt install jq
+          LATESTFLORIDARELEASETAG=$(curl -s https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest | jq -r '.tag_name')
+          LATESTMODULETAG=$(curl -s https://api.github.com/repos/Exo1i/MagiskHluda/releases/latest | jq -r '.tag_name')
+          echo "LATESTFLORIDARELEASETAG=${LATESTFLORIDARELEASETAG}" >> $GITHUB_ENV
+          echo "LATESTMODULETAG=${LATESTMODULETAG}" >> $GITHUB_ENV
+          mkdir -p tmp/bin
+          ./MagiskHluda
+          echo "Setup completed"
+
   build:
+    needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -22,95 +57,45 @@ jobs:
           key: ${{ runner.os }}-vcpkg-${{ hashFiles('**/vcpkg.json', '**/vcpkg-configuration.json') }}
           restore-keys: |
             ${{ runner.os }}-vcpkg-
-
-      - name: Setup vcpkg
+      - name: Setup vcpkg if not cached
         run: |
           if [ ! -d "vcpkg" ]; then
             git clone https://github.com/Microsoft/vcpkg.git
+            cd vcpkg
+            ./bootstrap-vcpkg.sh
+            cd ..
           fi
-          cd vcpkg
-          ./bootstrap-vcpkg.sh
-          ./vcpkg install rapidjson restclient-cpp
-          cd ..
-
-      - name: Get latest release of florida and latest version magisk module built
-        run: |
-          sudo apt install jq
-          LATESTFLORIDARELEASETAG=$(curl -s https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest | jq -r '.tag_name')
-          LATESTMODULETAG=$(curl -s https://api.github.com/repos/Exo1i/MagiskHluda/releases/latest | jq -r '.tag_name')
-          echo "LATESTFLORIDARELEASETAG=${LATESTFLORIDARELEASETAG}" >> $GITHUB_ENV
-          echo "latest release: ${LATESTFLORIDARELEASETAG}"
-          echo "LATESTMODULETAG=${LATESTMODULETAG}" >> $GITHUB_ENV
-          echo "latest module tag: ${LATESTMODULETAG}"
-
       - name: Create Release Archive for ${{ matrix.arch }}
-        if: ${{env.LATESTMODULETAG != env.LATESTFLORIDARELEASETAG && env.LATESTFLORIDARELEASETAG != 'null' && env.LATESTMODULETAG !='null'}}
         run: |
-          mkdir -p tmp/bin
-          cmake -B release -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
-          cd release
-          cmake --build .
-          ./MagiskHluda
-          if [[ $? -ne 0 ]]; then
-            echo "MagiskHluda failed with exit code $?"
-            exit 1
-          fi
-          echo "MagiskHluda succeeded"
-          
           FILENAME="florida-$([[ "${{ matrix.arch }}" == "x86_64" ]] && echo "x64" || echo "${{ matrix.arch }}").gz"
-          
-          # Create architecture-specific zip
           mkdir -p arch_release/tmp/bin
-          cp -r ../base/* arch_release/
-          cp "./tmp/bin/$FILENAME" "arch_release/tmp/bin/"
+          cp -r tmp/* arch_release/
+          cp "tmp/bin/$FILENAME" "arch_release/tmp/bin/"
           (cd arch_release && zip -r "../Magisk-Florida-${{ matrix.arch }}-$LATESTFLORIDARELEASETAG.zip" .)
-          
-          TAG=$(cat currentTag.txt)
-          echo "NEW_TAG=$TAG" >> $GITHUB_ENV
 
   universal_release:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Download artifacts and create universal zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create universal zip package
         run: |
-          LATESTFLORIDARELEASETAG=$(curl -s https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest | jq -r '.tag_name')
-          LATESTMODULETAG=$(curl -s https://api.github.com/repos/Exo1i/MagiskHluda/releases/latest | jq -r '.tag_name')
+          mkdir -p universal_release/tmp/bin
+          cp -r tmp/* universal_release/
+          (cd universal_release && zip -r "../Magisk-Florida-Universal-${LATESTFLORIDARELEASETAG}.zip" .)
 
-          if [[ "$LATESTMODULETAG" != "$LATESTFLORIDARELEASETAG" && "$LATESTFLORIDARELEASETAG" != 'null' && "$LATESTMODULETAG" != 'null' ]]; then
-            mkdir -p universal_release/tmp/bin
-            cp -r magisk_template/* universal_release/
-
-            # List of architectures
-            ARCHS=("arm" "arm64" "x86" "x86_64")
-
-            # Download and include files for each architecture
-            for ARCH in "${ARCHS[@]}"; do
-              # Use x86 filename for x86_64
-              FILENAME="florida-$([[ "$ARCH" == "x86_64" ]] && echo "x64" || echo "$ARCH").gz"
-
-              # Download the architecture-specific binary
-              wget "https://github.com/Exo1i/MagiskHluda/releases/download/${LATESTMODULETAG}/Magisk-Florida-${ARCH}-${LATESTFLORIDARELEASETAG}.zip"
-              unzip "Magisk-Florida-${ARCH}-${LATESTFLORIDARELEASETAG}.zip" "tmp/bin/${FILENAME}"
-              cp "tmp/bin/${FILENAME}" "universal_release/tmp/bin/"
-            done
-
-            # Create universal zip
-            (cd universal_release && zip -r "../Magisk-Florida-Universal-${LATESTFLORIDARELEASETAG}.zip" .)
-          fi
-
-      - name: Release Universal Package
-        if: ${{env.LATESTMODULETAG != env.LATESTFLORIDARELEASETAG && env.LATESTFLORIDARELEASETAG != 'null' && env.LATESTMODULETAG !='null'}}
+  release:
+    needs: universal_release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release Packages
         uses: ncipollo/release-action@v1.13.0
         with:
           artifacts: |
             ./*.zip
             update.json
-          name: "Magisk Module for Florida Server ${{ env.NEW_TAG }} (Universal)"
-          tag: "${{ env.NEW_TAG }}"
+          name: "Magisk Module for Florida Server ${{ env.LATESTFLORIDARELEASETAG }}"
+          tag: "${{ env.LATESTFLORIDARELEASETAG }}"
           body: "Universal package and architecture-specific packages for Florida Server ${{env.LATESTFLORIDARELEASETAG}}"
           generateReleaseNotes: false
           token: ${{ secrets.GITHUB_TOKEN }}
