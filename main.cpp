@@ -2,14 +2,14 @@
 #include <iostream>
 #include "restclient-cpp/restclient.h"
 
-std::string utils::latestHludaTag = utils::getRecentTag();
+std::string utils::latestTag = utils::getRecentTag();
 
 int main() {
     try {
         RestClient::init();
         utils::createModuleProps();
+        utils::createUpdateJson();
         utils::downloadServers();
-        utils::copyModuleTemplate();
         RestClient::disable();
         return 0;
     } catch (const std::exception &e) {

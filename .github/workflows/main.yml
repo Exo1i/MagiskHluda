@@ -5,59 +5,71 @@ on:
 permissions:
   contents: write
 jobs:
-  runner:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
     steps:
       - uses: actions/checkout@v3
-      - name: Get latest release of hluda and latest version magisk module built
+
+      - name: Cache vcpkg packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            vcpkg
+            ~/vcpkg/installed
+          key: ${{ runner.os }}-vcpkg-${{ hashFiles('**/vcpkg.json', '**/vcpkg-configuration.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-
+
+      - name: Setup vcpkg if not cached
+        run: |
+          if [ ! -d "vcpkg" ]; then
+            git clone https://github.com/Microsoft/vcpkg.git
+            cd vcpkg
+            ./bootstrap-vcpkg.sh
+            ./vcpkg install rapidjson restclient-cpp
+            cd ..
+          fi
+
+      - name: Build MagiskHluda
+        run: |
+          cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
+          cmake --build build --config Release
+          cp build/MagiskHluda .
+
+      - name: Setup environment and run MagiskHluda
         run: |
           sudo apt install jq
-          LATESTHLUDARELEASETAG=$(curl -s https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest | jq -r '.tag_name')
+          LATESTFLORIDARELEASETAG=$(curl -s https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest | jq -r '.tag_name')
           LATESTMODULETAG=$(curl -s https://api.github.com/repos/Exo1i/MagiskHluda/releases/latest | jq -r '.tag_name')
-          echo "LATESTHLUDARELEASETAG=${LATESTHLUDARELEASETAG}" >> $GITHUB_ENV
-          echo "latest release: ${LATESTHLUDARELEASETAG}"
+          echo "LATESTFLORIDARELEASETAG=${LATESTFLORIDARELEASETAG}" >> $GITHUB_ENV
           echo "LATESTMODULETAG=${LATESTMODULETAG}" >> $GITHUB_ENV
-          echo "latest module tag: ${LATESTMODULETAG}"
-
-      - name: Create Release Archive and Set Tag Information
-        if: ${{env.LATESTMODULETAG != env.LATESTHLUDARELEASETAG && env.LATESTHLUDARELEASETAG != 'null' && env.LATESTMODULETAG !='null'}}
-        run: |
-          git clone https://github.com/Microsoft/vcpkg.git
-          cd vcpkg
-          ./bootstrap-vcpkg.sh
-          ./vcpkg install rapidjson restclient-cpp
-          cd ..
-          mkdir release 
-          cmake -B release -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
-          cd release
-          cmake --build .
           ./MagiskHluda
-          if [[ $? -ne 0 ]]; then
-            echo "MagiskHluda failed with exit code $?"
-            exit 1
-          fi
-          echo "MagiskHluda succeeded"
-          (cd ./tmp && zip -r ../Magisk-Hluda-$LATESTHLUDARELEASETAG.zip ./*)
-          TAG=$(cat currentTag.txt)
-          echo "NEW_TAG=$TAG" >> $GITHUB_ENV
 
-      - name: Release
-        if: ${{env.LATESTMODULETAG != env.LATESTHLUDARELEASETAG && env.LATESTHLUDARELEASETAG != 'null' && env.LATESTMODULETAG !='null'}}
+      - name: Prepare release archives
+        run: |
+          for arch in arm arm64 x86 x86_64; do
+            FILENAME="florida-$([[ "$arch" == "x86_64" ]] && echo "x64" || echo "$arch").gz"
+            mkdir -p "arch_release_$arch/bin"
+            cp -r module_template/* "arch_release_$arch/"
+            cp "bin/$FILENAME" "arch_release_$arch/bin/"
+            (cd "arch_release_$arch" && zip -r "../Magisk-Florida-$arch-$LATESTFLORIDARELEASETAG.zip" .)
+          done
+          
+          # Universal package
+          mkdir -p universal_release
+          cp -r module_template/* universal_release/
+          mkdir -p "universal_release/bin"
+          cp -r bin/* universal_release/bin/
+          (cd universal_release && zip -r "../Magisk-Florida-Universal-$LATESTFLORIDARELEASETAG.zip" .)
+
+      - name: Release Packages
         uses: ncipollo/release-action@v1.13.0
         with:
-          artifacts: ./release/*.zip
-          name: "Magisk Module for Hluda Server ${{ env.NEW_TAG }}"
-          tag: "${{ env.NEW_TAG }}"
-          body: "${{env.LATESTHLUDARELEASETAG}} released!"
+          artifacts: |
+            ./*.zip
+            update.json
+          name: "Magisk Module for Florida Server ${{ env.LATESTFLORIDARELEASETAG }}"
+          tag: "${{ env.LATESTFLORIDARELEASETAG }}"
+          body: "Universal package and architecture-specific packages for Florida Server ${{env.LATESTFLORIDARELEASETAG}}"
           generateReleaseNotes: false
-          omitBody: false
-          omitBodyDuringUpdate: false
-          omitDraftDuringUpdate: false
-          omitName: false
-          omitNameDuringUpdate: false
-          omitPrereleaseDuringUpdate: false
-          removeArtifacts: false
-          replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}

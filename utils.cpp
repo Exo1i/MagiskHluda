@@ -10,6 +10,7 @@
 #include "utils.h"
 
 namespace fs = std::filesystem;
+const std::string basePath = "./module_template/";
 
 std::string utils::getRecentTag() {
     const std::string url = "https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest";
@@ -35,10 +36,10 @@ void download(const std::string &aarch) {
 
     auto start = std::chrono::system_clock::now();
 
-    std::cout << "Starting To Downloaded hluda for arch: " + aarch + "\n";
+    std::cout << "Starting To Downloaded florida for arch: " + aarch + "\n";
 
-    std::string url = "https://github.com/hzzheyang/strongR-frida-android/releases/download/" + utils::latestHludaTag +
-                      "/hluda-server-" + utils::latestHludaTag + "-android-" + aarch + ".gz";
+    std::string url = "https://github.com/ylarod/florida/releases/download/" + utils::latestTag +
+                      "/florida-server-" + utils::latestTag + "-android-" + aarch + ".gz";
 
     std::unique_ptr<RestClient::Connection> pConnection(new RestClient::Connection(url));
     pConnection->FollowRedirects(true);
@@ -49,9 +50,9 @@ void download(const std::string &aarch) {
     }
     std::string filename;
     if (aarch == "x86_64")
-        filename = "tmp/bin/hluda-x64.gz";
+        filename = "bin/florida-x64.gz";
     else
-        filename = "tmp/bin/hluda-" + aarch + ".gz";
+        filename = "bin/florida-" + aarch + ".gz";
 
     std::ofstream downloadedFile(filename, std::ios::out | std::ios::binary);
 
@@ -66,12 +67,12 @@ void download(const std::string &aarch) {
     std::chrono::duration<double> elapsed_seconds = end - start;
     std::time_t end_time = std::chrono::system_clock::to_time_t(end);
     std::cout
-            << "Successfully Downloaded hluda for arch: " + aarch + ". Took " + to_string(elapsed_seconds.count()) +
+            << "Successfully Downloaded florida for arch: " + aarch + ". Took " + to_string(elapsed_seconds.count()) +
                "s\n";
 }
 
 void utils::downloadServers() {
-    fs::create_directories("tmp/bin");
+    fs::create_directories("./bin");
     const std::vector<std::string> archs = {"arm", "arm64", "x86", "x86_64"};
 
     for (const auto &aarch: archs) {
@@ -85,22 +86,42 @@ void utils::downloadServers() {
 }
 
 void utils::createModuleProps() {
-    fs::create_directory("tmp");
-    std::ofstream moduleProps("tmp/module.prop");
+    std::ofstream moduleProps(basePath + "module.prop");
 
     if (!moduleProps) {
         throw std::runtime_error("Failed to open module.prop for writing");
     }
 
     moduleProps << "id=magisk-hluda\n"
-                << "name=StrongR-Frida Server on Boot\n"
-                << "version=" << latestHludaTag.substr(0, latestHludaTag.find('-')) << '\n'
-                << "versionCode=" << latestHludaTag.substr(0, latestHludaTag.find('.')) << '\n'
-                << "author=The Community - hzzheyang - Ylarod - Exo1i\n"
-                << "description=Runs frida-server on boot\n";
+                << "name=Frida(Florida) Server on Boot\n"
+                << "version=" << latestTag.substr(0, latestTag.find('-')) << '\n'
+                << "versionCode=" << latestTag.substr(0, latestTag.find('.')) << '\n'
+                << "author=The Community - Ylarod - Exo1i\n"
+                << "description=Runs a stealthier frida-server on boot\n"
+                << "updateJson=https://github.com/exo1i/magiskhluda/releases/latest/download/update.json";
 }
 
-void utils::copyModuleTemplate() {
-    const std::string basePath = "../base/";
-    fs::copy(basePath, "tmp/", fs::copy_options::recursive);
+void utils::createUpdateJson() {
+    std::string versionCode = latestTag;
+    // Remove potential pre-release part
+    size_t dashPos = versionCode.find('-');
+    if (dashPos != std::string::npos) {
+        versionCode = versionCode.substr(0, dashPos);
+    }
+
+    // Convert version to version code (first two digits)
+    int numericVersionCode = std::stoi(versionCode.substr(0, versionCode.find('.')));
+
+    std::ofstream updateJson( "update.json");
+    if (!updateJson) {
+        throw std::runtime_error("Failed to open update.json for writing");
+    }
+
+    updateJson << "{\n"
+               << R"(  "version": ")" << latestTag << "\",\n"
+               << "  \"versionCode\": " << numericVersionCode << ",\n"
+               << R"(  "zipUrl": "https://github.com/exo1i/magiskhluda/releases/download/)"
+               << latestTag << "/Magisk-Florida-Universal-" << latestTag << ".zip\"\n"
+               << "}\n";
 }
+
