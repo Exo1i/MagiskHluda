@@ -24,10 +24,13 @@ jobs:
             git clone https://github.com/Microsoft/vcpkg.git
             cd vcpkg
             ./bootstrap-vcpkg.sh
-           ./vcpkg install rapidjson restclient-cpp
+            ./vcpkg install rapidjson restclient-cpp
             cd ..
-          fi
-
+      - name: Build MagiskHluda
+        run: |
+          cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
+          cmake --build build --config Release
+          cp build/MagiskHluda .
       - name: Setup environment and run MagiskHluda
         run: |
           sudo apt install jq
@@ -38,7 +41,6 @@ jobs:
           mkdir -p tmp/bin
           ./MagiskHluda
           echo "Setup completed"
-
   build:
     needs: setup
     runs-on: ubuntu-latest
