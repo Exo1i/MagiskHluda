@@ -20,10 +20,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aefada74-1f27-4131-b05b-d6a8266be2c2" name="Changes" comment="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg">
+    <list default="true" id="aefada74-1f27-4131-b05b-d6a8266be2c2" name="Changes" comment="bug fixes, smh">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module_template/service.sh" beforeDir="false" afterPath="$PROJECT_DIR$/module_template/service.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webroot/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/webroot/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module_template/customize.sh" beforeDir="false" afterPath="$PROJECT_DIR$/module_template/customize.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,12 +123,12 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="MagiskHluda" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MagiskHluda" TARGET_NAME="MagiskHluda" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MagiskHluda" RUN_TARGET_NAME="MagiskHluda">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="MagiskHluda" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MagiskHluda" TARGET_NAME="MagiskHluda" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MagiskHluda" RUN_TARGET_NAME="MagiskHluda">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -149,7 +148,8 @@
       <workItem from="1727142769556" duration="314000" />
       <workItem from="1727143420273" duration="246000" />
       <workItem from="1738326717152" duration="16439000" />
-      <workItem from="1738343214432" duration="519000" />
+      <workItem from="1738343214432" duration="1257000" />
+      <workItem from="1738344684967" duration="2200000" />
     </task>
     <task id="LOCAL-00001" summary="Init Repo">
       <option name="closed" value="true" />
@@ -407,7 +407,23 @@
       <option name="project" value="LOCAL" />
       <updated>1738343111663</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg">
+      <option name="closed" value="true" />
+      <created>1738343745865</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1738343745865</updated>
+    </task>
+    <task id="LOCAL-00034" summary="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg">
+      <option name="closed" value="true" />
+      <created>1738346504454</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1738346504454</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -438,7 +454,8 @@
     <MESSAGE value="Update README.md" />
     <MESSAGE value="Alot of new stuff idk" />
     <MESSAGE value="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg" />
-    <option name="LAST_COMMIT_MESSAGE" value="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg" />
+    <MESSAGE value="bug fixes, smh" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fixes, smh" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
