@@ -26,6 +26,7 @@ jobs:
             ./bootstrap-vcpkg.sh
             ./vcpkg install rapidjson restclient-cpp
             cd ..
+          fi
       - name: Build MagiskHluda
         run: |
           cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
