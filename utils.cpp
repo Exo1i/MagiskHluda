@@ -35,10 +35,10 @@ void download(const std::string &aarch) {
 
     auto start = std::chrono::system_clock::now();
 
-    std::cout << "Starting To Downloaded hluda for arch: " + aarch + "\n";
+    std::cout << "Starting To Downloaded florida for arch: " + aarch + "\n";
 
-    std::string url = "https://github.com/hzzheyang/strongR-frida-android/releases/download/" + utils::latestHludaTag +
-                      "/hluda-server-" + utils::latestHludaTag + "-android-" + aarch + ".gz";
+    std::string url = "https://github.com/ylarod/florida/releases/download/" + utils::latestTag +
+                      "/florida-server-" + utils::latestTag + "-android-" + aarch + ".gz";
 
     std::unique_ptr<RestClient::Connection> pConnection(new RestClient::Connection(url));
     pConnection->FollowRedirects(true);
@@ -49,9 +49,9 @@ void download(const std::string &aarch) {
     }
     std::string filename;
     if (aarch == "x86_64")
-        filename = "tmp/bin/hluda-x64.gz";
+        filename = "tmp/bin/florida-x64.gz";
     else
-        filename = "tmp/bin/hluda-" + aarch + ".gz";
+        filename = "tmp/bin/florida-" + aarch + ".gz";
 
     std::ofstream downloadedFile(filename, std::ios::out | std::ios::binary);
 
@@ -66,7 +66,7 @@ void download(const std::string &aarch) {
     std::chrono::duration<double> elapsed_seconds = end - start;
     std::time_t end_time = std::chrono::system_clock::to_time_t(end);
     std::cout
-            << "Successfully Downloaded hluda for arch: " + aarch + ". Took " + to_string(elapsed_seconds.count()) +
+            << "Successfully Downloaded florida for arch: " + aarch + ". Took " + to_string(elapsed_seconds.count()) +
                "s\n";
 }
 
@@ -93,11 +93,12 @@ void utils::createModuleProps() {
     }
 
     moduleProps << "id=magisk-hluda\n"
-                << "name=StrongR-Frida Server on Boot\n"
-                << "version=" << latestHludaTag.substr(0, latestHludaTag.find('-')) << '\n'
-                << "versionCode=" << latestHludaTag.substr(0, latestHludaTag.find('.')) << '\n'
-                << "author=The Community - hzzheyang - Ylarod - Exo1i\n"
-                << "description=Runs frida-server on boot\n";
+                << "name=Frida(Florida) Server on Boot\n"
+                << "version=" << latestTag.substr(0, latestTag.find('-')) << '\n'
+                << "versionCode=" << latestTag.substr(0, latestTag.find('.')) << '\n'
+                << "author=The Community - Ylarod - Exo1i\n"
+                << "description=Runs a stealthier frida-server on boot\n"
+                << "updateJson=https://github.com/exo1i/magiskhluda/releases/latest/download/update.json";
 }
 
 void utils::copyModuleTemplate() {

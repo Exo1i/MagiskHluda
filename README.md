@@ -1,17 +1,17 @@
-## **Hluda on Boot: Unleash Hluda's Power with Enhanced Undetectability**
+## **Florida on Boot: Unleash Florida's Power with Enhanced Undetectability**
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Exo1i/MagiskHluda)
 ![GitHub downloads](https://img.shields.io/github/downloads/Exo1i/magiskhluda/total)
 
-**🌟 This a magisk module based on [StrongR-Frida](https://github.com/hzzheyang/strongR-frida-android) which is a more
+**🌟 This a magisk module based on [Florida](https://github.com/Ylarod/Florida) which is a more
 undetectable version of [Frida](https://github.com/frida/frida/).**
 
-**🌟 It basically sets up [StrongR-Frida](https://github.com/hzzheyang/strongR-frida-android) to start on boot for you.**
+**🌟 It basically sets up [Florida](https://github.com/Ylarod/Florida) to start on boot for you.**
 
 ## **Meet your stealthy companion:** ️‍
 
 - **Powerful toolkit for dynamic analysis, reverse engineering, and security testing.**
-- **Hluda takes it to the next level with a more undetectable frida-server for Android.**
+- **Florida takes it to the next level with a more undetectable frida-server for Android.**
 - **Stay under the radar while you explore and manipulate apps like a pro.**
 
 ## **Supported Architectures:** ️
@@ -52,7 +52,7 @@ undetectable version of [Frida](https://github.com/frida/frida/).**
   request: [https://github.com/ViRb3/magisk-frida/issues/16](https://github.com/ViRb3/magisk-frida/issues/16) from 2021
   on ViRb3's module.
 
-**Ready to explore with enhanced stealth? Get started with Hluda today!**
+**Ready to explore with enhanced stealth? Get started with Florida today!**
 
 ## **Still Being Detected?**
 

@@ -16,8 +16,8 @@ sleep 5
 
 # restart on crash
 while true; do
-    if ! pgrep -x "hluda" > /dev/null; then
-        hluda -D
+    if ! pgrep -x "florida" > /dev/null; then
+        florida -D
     fi
     sleep 1
 done

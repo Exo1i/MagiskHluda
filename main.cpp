@@ -2,7 +2,7 @@
 #include <iostream>
 #include "restclient-cpp/restclient.h"
 
-std::string utils::latestHludaTag = utils::getRecentTag();
+std::string utils::latestTag = utils::getRecentTag();
 
 int main() {
     try {

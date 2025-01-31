@@ -10,7 +10,7 @@ using namespace std;
 
 class utils {
 public:
-    static string latestHludaTag;
+    static string latestTag;
 
     static void copyModuleTemplate();
 

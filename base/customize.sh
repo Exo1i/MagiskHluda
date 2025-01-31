@@ -50,7 +50,7 @@ elif [ "$BOOTMODE" ] && [ "$MAGISK_VER_CODE" ]; then
 fi
 
 VERSION=$(grep_prop version "${TMPDIR}/module.prop")
-print_title "- Installing Magisk Hluda on boot $VERSION"
+print_title "- Installing Magisk Florida on boot $VERSION"
 
 # check architecture
 regex="^(arm(64)?|x(86|64))$"
@@ -68,12 +68,47 @@ unzip -qq -o "$ZIPFILE" 'uninstall.sh' -d "$MODPATH"
 
 mkdir -p "$MODPATH/system/bin"
 
-ui_print "- Extracting Server File for $ARCH platform"
-unzip -qq -o -j "$ZIPFILE" "bin/hluda-$ARCH.gz" "$TMPDIR"
-gzip -d "$TMPDIR/hluda-$ARCH.gz"
-mv "$TMPDIR/hluda-$ARCH" "$MODPATH/system/bin/hluda"
+# Handle architecture-specific files
+case "$ARCH" in
+  arm)
+    BINARY_FILE="florida-arm.gz"
+    ;;
+  arm64)
+    BINARY_FILE="florida-arm64.gz"
+    ;;
+  x86)
+    BINARY_FILE="florida-x86.xz"
+    ;;
+  x86_64)
+    BINARY_FILE="florida-x86.xz"
+    ;;
+  *)
+    abort "! Unsupported architecture: $ARCH"
+    ;;
+esac
 
+# Check if the specific arch binary exists
+if ! unzip -l "$ZIPFILE" "bin/$BINARY_FILE" &>/dev/null; then
+  ui_print "************************************"
+  ui_print "! Binary not available for $ARCH arch"
+  ui_print "! Please download the universal package"
+  ui_print "! or the correct architecture package"
+  ui_print "************************************"
+  abort "Incompatible architecture package"
+fi
+
+ui_print "- Extracting Server File for $ARCH platform"
+unzip -qq -o -j "$ZIPFILE" "bin/$BINARY_FILE" "$TMPDIR"
+
+# Decompress based on file extension
+if [[ "$BINARY_FILE" == *.gz ]]; then
+  gzip -d "$TMPDIR/$BINARY_FILE"
+  mv "$TMPDIR/florida-$ARCH" "$MODPATH/system/bin/florida"
+elif [[ "$BINARY_FILE" == *.xz ]]; then
+  xz -d "$TMPDIR/$BINARY_FILE"
+  mv "$TMPDIR/florida-x86" "$MODPATH/system/bin/florida"
+fi
 
 ui_print "- Setting permissions"
-  set_perm_recursive $MODPATH 0 0 0755 0644
-  set_perm $MODPATH/system/bin/hluda 0 2000 0755 u:object_r:system_file:s0
+set_perm_recursive $MODPATH 0 0 0755 0644
+set_perm $MODPATH/system/bin/florida 0 2000 0755 u:object_r:system_file:s0
