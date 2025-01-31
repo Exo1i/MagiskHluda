@@ -104,9 +104,6 @@ unzip -qq -o -j "$ZIPFILE" "bin/$BINARY_FILE" "$TMPDIR"
 if [[ "$BINARY_FILE" == *.gz ]]; then
   gzip -d "$TMPDIR/$BINARY_FILE"
   mv "$TMPDIR/florida-$ARCH" "$MODPATH/system/bin/florida"
-elif [[ "$BINARY_FILE" == *.xz ]]; then
-  xz -d "$TMPDIR/$BINARY_FILE"
-  mv "$TMPDIR/florida-x86" "$MODPATH/system/bin/florida"
 fi
 
 ui_print "- Setting permissions"

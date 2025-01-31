@@ -112,7 +112,7 @@ void utils::createUpdateJson() {
     // Convert version to version code (first two digits)
     int numericVersionCode = std::stoi(versionCode.substr(0, versionCode.find('.'))) * 10;
 
-    std::ofstream updateJson(basePath + "update.json");
+    std::ofstream updateJson( "update.json");
     if (!updateJson) {
         throw std::runtime_error("Failed to open update.json for writing");
     }
