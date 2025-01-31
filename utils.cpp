@@ -126,6 +126,6 @@ void utils::createUpdateJson() {
 }
 
 void utils::copyModuleTemplate() {
-    const std::string basePath = "../base/";
+    const std::string basePath = "./base/";
     fs::copy(basePath, "tmp/", fs::copy_options::recursive);
 }
