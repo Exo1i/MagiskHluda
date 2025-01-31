@@ -74,30 +74,33 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download artifacts and create universal zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           LATESTFLORIDARELEASETAG=$(curl -s https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest | jq -r '.tag_name')
           LATESTMODULETAG=$(curl -s https://api.github.com/repos/Exo1i/MagiskHluda/releases/latest | jq -r '.tag_name')
-          
+
           if [[ "$LATESTMODULETAG" != "$LATESTFLORIDARELEASETAG" && "$LATESTFLORIDARELEASETAG" != 'null' && "$LATESTMODULETAG" != 'null' ]]; then
             mkdir -p universal_release/tmp/bin
             cp -r magisk_template/* universal_release/
-          
+
             # List of architectures
             ARCHS=("arm" "arm64" "x86" "x86_64")
-          
+
             # Download and include files for each architecture
             for ARCH in "${ARCHS[@]}"; do
               # Use x86 filename for x86_64
               FILENAME="florida-$([[ "$ARCH" == "x86_64" ]] && echo "x64" || echo "$ARCH").gz"
-          
+
               # Download the architecture-specific binary
-              wget "https://github.com/${{ github.repository }}/releases/download/${NEW_TAG}/Magisk-Florida-${ARCH}-${LATESTFLORIDARELEASETAG}.zip"
+              wget "https://github.com/Exo1i/MagiskHluda/releases/download/${LATESTMODULETAG}/Magisk-Florida-${ARCH}-${LATESTFLORIDARELEASETAG}.zip"
               unzip "Magisk-Florida-${ARCH}-${LATESTFLORIDARELEASETAG}.zip" "tmp/bin/${FILENAME}"
               cp "tmp/bin/${FILENAME}" "universal_release/tmp/bin/"
             done
-          
+
             # Create universal zip
             (cd universal_release && zip -r "../Magisk-Florida-Universal-${LATESTFLORIDARELEASETAG}.zip" .)
+          fi
 
       - name: Release Universal Package
         if: ${{env.LATESTMODULETAG != env.LATESTFLORIDARELEASETAG && env.LATESTFLORIDARELEASETAG != 'null' && env.LATESTMODULETAG !='null'}}
