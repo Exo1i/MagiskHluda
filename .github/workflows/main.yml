@@ -53,6 +53,8 @@ jobs:
             mkdir -p "arch_release_$arch/tmp/bin"
             cp -r tmp/* "arch_release_$arch/"
             cp "tmp/bin/$FILENAME" "arch_release_$arch/tmp/bin/"
+            # Remove all other .gz files from the bin directory
+            find "arch_release_$arch/tmp/bin/" -name "*.gz" ! -name "$FILENAME" -delete
             (cd "arch_release_$arch" && zip -r "../Magisk-Florida-$arch-$LATESTFLORIDARELEASETAG.zip" .)
           done
           
