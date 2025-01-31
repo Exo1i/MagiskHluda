@@ -103,7 +103,7 @@ jobs:
               "version": "$(echo $LATESTFLORIDARELEASETAG)",
               "versionCode": $((VERSION_CODE * 10)),
               "zipUrl": "$(echo $RELEASE_URL)",
-              "changelogUrl": $(curl -s "https://api.github.com/repos/${{ github.repository }}/releases/latest" | jq -r '.name')
+              "changelogUrl": "$(curl -s "https://api.github.com/repos/Exo1i/MagiskHluda/releases/latest" | jq -r '.name')"
             }
             EOF
 
