@@ -22,6 +22,7 @@
   <component name="ChangeListManager">
     <list default="true" id="aefada74-1f27-4131-b05b-d6a8266be2c2" name="Changes" comment="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg">
       <change beforePath="$PROJECT_DIR$/.github/workflows/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/main.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +130,7 @@
       <workItem from="1727124940483" duration="17712000" />
       <workItem from="1727142769556" duration="314000" />
       <workItem from="1727143420273" duration="246000" />
-      <workItem from="1738326717152" duration="8069000" />
+      <workItem from="1738326717152" duration="8660000" />
     </task>
     <task id="LOCAL-00001" summary="Init Repo">
       <option name="closed" value="true" />
@@ -315,7 +316,23 @@
       <option name="project" value="LOCAL" />
       <updated>1738334705455</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg">
+      <option name="closed" value="true" />
+      <created>1738334793888</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1738334793888</updated>
+    </task>
+    <task id="LOCAL-00025" summary="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg">
+      <option name="closed" value="true" />
+      <created>1738334939470</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1738334939470</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

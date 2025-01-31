@@ -50,24 +50,6 @@ jobs:
         arch: [ arm, arm64, x86, x86_64 ]
       fail-fast: true
     steps:
-      - uses: actions/checkout@v3
-      - name: Cache vcpkg packages
-        uses: actions/cache@v3
-        with:
-          path: |
-            vcpkg
-            ~/vcpkg/installed
-          key: ${{ runner.os }}-vcpkg-${{ hashFiles('**/vcpkg.json', '**/vcpkg-configuration.json') }}
-          restore-keys: |
-            ${{ runner.os }}-vcpkg-
-      - name: Setup vcpkg if not cached
-        run: |
-          if [ ! -d "vcpkg" ]; then
-            git clone https://github.com/Microsoft/vcpkg.git
-            cd vcpkg
-            ./bootstrap-vcpkg.sh
-            cd ..
-          fi
       - name: Create Release Archive for ${{ matrix.arch }}
         run: |
           FILENAME="florida-$([[ "${{ matrix.arch }}" == "x86_64" ]] && echo "x64" || echo "${{ matrix.arch }}").gz"
