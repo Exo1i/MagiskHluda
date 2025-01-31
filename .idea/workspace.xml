@@ -20,16 +20,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aefada74-1f27-4131-b05b-d6a8266be2c2" name="Changes" comment="Alot of new stuff idk">
+    <list default="true" id="aefada74-1f27-4131-b05b-d6a8266be2c2" name="Changes" comment="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg">
       <change beforePath="$PROJECT_DIR$/.github/workflows/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/main.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/customize.sh" beforeDir="false" afterPath="$PROJECT_DIR$/base/customize.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base/service.sh" beforeDir="false" afterPath="$PROJECT_DIR$/base/service.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/troubleshooting.md" beforeDir="false" afterPath="$PROJECT_DIR$/troubleshooting.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/utils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/utils.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +35,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
     <option name="UPDATE_TYPE" value="REBASE" />
@@ -87,7 +85,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "testing",
     "last_opened_file_path": "/home/exo/CLionProjects/MagiskHluda2/cmake-build-debug/tmp",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -132,7 +130,7 @@
       <workItem from="1727124940483" duration="17712000" />
       <workItem from="1727142769556" duration="314000" />
       <workItem from="1727143420273" duration="246000" />
-      <workItem from="1738326717152" duration="3517000" />
+      <workItem from="1738326717152" duration="5084000" />
     </task>
     <task id="LOCAL-00001" summary="Init Repo">
       <option name="closed" value="true" />
@@ -246,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727143052576</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg">
+      <option name="closed" value="true" />
+      <created>1738330641901</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1738330641901</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -275,7 +281,8 @@
     <MESSAGE value="Updated README.md" />
     <MESSAGE value="Update README.md" />
     <MESSAGE value="Alot of new stuff idk" />
-    <option name="LAST_COMMIT_MESSAGE" value="Alot of new stuff idk" />
+    <MESSAGE value="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg" />
+    <option name="LAST_COMMIT_MESSAGE" value="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

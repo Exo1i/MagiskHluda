@@ -41,7 +41,7 @@ jobs:
           ./bootstrap-vcpkg.sh
           ./vcpkg install rapidjson restclient-cpp
           cd ..
-          mkdir -p release/bin
+          mkdir -p tmp/bin
           cmake -B release -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
           cd release
           cmake --build .
@@ -52,15 +52,12 @@ jobs:
           fi
           echo "MagiskHluda succeeded"
           
-          # Compress with xz for all architectures
-          FILENAME="florida-${{ matrix.arch == 'x86_64' && 'x86' || matrix.arch }}.xz"
-          (cd ./tmp && xz -9 "./florida-${{ matrix.arch }}" && mv "./florida-${{ matrix.arch }}.xz" "./$FILENAME")
+          FILENAME="florida-$([[ "${{ matrix.arch }}" == "x86_64" ]] && echo "x64" || echo "${{ matrix.arch }}").gz"
           
           # Create architecture-specific zip
-          mkdir arch_release
-          cp -r ../magisk_template/* arch_release/
-          mkdir -p arch_release/bin
-          cp "./tmp/$FILENAME" arch_release/bin/
+          mkdir -p arch_release/tmp/bin
+          cp -r ../base/* arch_release/
+          cp "./tmp/bin/$FILENAME" "arch_release/tmp/bin/"
           (cd arch_release && zip -r "../Magisk-Florida-${{ matrix.arch }}-$LATESTFLORIDARELEASETAG.zip" .)
           
           TAG=$(cat currentTag.txt)
@@ -77,7 +74,7 @@ jobs:
           LATESTMODULETAG=$(curl -s https://api.github.com/repos/Exo1i/MagiskHluda/releases/latest | jq -r '.tag_name')
           
           if [[ "$LATESTMODULETAG" != "$LATESTFLORIDARELEASETAG" && "$LATESTFLORIDARELEASETAG" != 'null' && "$LATESTMODULETAG" != 'null' ]]; then
-            mkdir -p universal_release/bin
+            mkdir -p universal_release/tmp/bin
             cp -r magisk_template/* universal_release/
           
             # List of architectures
@@ -86,12 +83,12 @@ jobs:
             # Download and include files for each architecture
             for ARCH in "${ARCHS[@]}"; do
               # Use x86 filename for x86_64
-              FILENAME="florida-$([[ "$ARCH" == "x86_64" ]] && echo "x86" || echo "$ARCH").xz"
+              FILENAME="florida-$([[ "$ARCH" == "x86_64" ]] && echo "x64" || echo "$ARCH").gz"
           
               # Download the architecture-specific binary
               wget "https://github.com/${{ github.repository }}/releases/download/${NEW_TAG}/Magisk-Florida-${ARCH}-${LATESTFLORIDARELEASETAG}.zip"
-              unzip "Magisk-Florida-${ARCH}-${LATESTFLORIDARELEASETAG}.zip" "bin/${FILENAME}"
-              cp "bin/${FILENAME}" "universal_release/bin/"
+              unzip "Magisk-Florida-${ARCH}-${LATESTFLORIDARELEASETAG}.zip" "tmp/bin/${FILENAME}"
+              cp "tmp/bin/${FILENAME}" "universal_release/tmp/bin/"
             done
           
             # Create universal zip
@@ -106,7 +103,7 @@ jobs:
               "version": "$(echo $LATESTFLORIDARELEASETAG)",
               "versionCode": $((VERSION_CODE * 10)),
               "zipUrl": "$(echo $RELEASE_URL)",
-              CHANGELOG_URL=$(curl -s "https://api.github.com/repos/${{ github.repository }}/releases/latest" | jq -r '.name')
+              "changelogUrl": $(curl -s "https://api.github.com/repos/${{ github.repository }}/releases/latest" | jq -r '.name')
             }
             EOF
 
