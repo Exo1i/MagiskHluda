@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"bhaBe":[function(require,module,exports,__globalThis) {
+})({"1MVUb":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
 var HMR_USE_SSE = false;
-module.bundle.HMR_BUNDLE_ID = "868a7e4ff32f0862";
+module.bundle.HMR_BUNDLE_ID = "b9191ab18448d9c5";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -595,25 +595,41 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
     }
 }
 
-},{}],"845GS":[function(require,module,exports,__globalThis) {
+},{}],"htmOg":[function(require,module,exports,__globalThis) {
 var _kernelsu = require("kernelsu");
 const statusIndicator = document.getElementById('serverStatus');
 const statusText = document.getElementById('serverStatusText');
 const toggleBtn = document.getElementById('toggleServerBtn');
 const portInput = document.getElementById('portInput');
 const customParamsInput = document.getElementById('customParams');
+const warningDialog = document.getElementById('warningDialog');
+const cancelStop = document.getElementById('cancelStop');
+const confirmStop = document.getElementById('confirmStop');
 let isServerRunning = false;
+const MODULE_PROP_PATH = '/data/adb/modules/magisk-hluda/module.prop';
+async function updateModulePropStatus(running) {
+    const status = running ? "Running \u2705" : "Stopped \u274C";
+    try {
+        await (0, _kernelsu.exec)(`sed -i "s/^description=.*/description=[${status}]/" ${MODULE_PROP_PATH}`);
+    } catch (error) {
+        console.error('Failed to update module.prop:', error);
+    }
+}
 function updateStatus(running) {
+    if (isServerRunning === running) return;
     isServerRunning = running;
+    // Update UI
     statusIndicator.classList.toggle('status-running', running);
     statusIndicator.classList.toggle('status-stopped', !running);
     statusText.textContent = running ? 'Running' : 'Stopped';
     toggleBtn.textContent = running ? 'Stop Server' : 'Start Server';
+    // Update module.prop
+    updateModulePropStatus(running);
 }
 async function checkServerStatus() {
     try {
         // More precise process matching with full path
-        const { errno } = await (0, _kernelsu.exec)('pgrep -f "florida"');
+        const { errno } = await (0, _kernelsu.exec)('pgrep -f florida');
         updateStatus(errno === 0);
     } catch (error) {
         console.error('Error checking server status:', error);
@@ -622,11 +638,9 @@ async function checkServerStatus() {
 }
 async function startServer(port, customParams) {
     const baseCommand = `florida -l 127.0.0.1:${port}`;
-    // Added output redirection and background operator
     const fullCommand = (customParams ? `${baseCommand} ${customParams}` : baseCommand) + ' >/dev/null 2>&1 &';
     try {
         await (0, _kernelsu.exec)(fullCommand);
-        // Verify server actually started after short delay
         setTimeout(checkServerStatus, 500);
     } catch (error) {
         (0, _kernelsu.toast)(`Failed to start server: ${error.message}`);
@@ -635,23 +649,29 @@ async function startServer(port, customParams) {
 }
 async function stopServer() {
     try {
-        // More precise process killing with full path
-        const { errno } = await (0, _kernelsu.exec)('pkill -f "florida"');
+        const { errno } = await (0, _kernelsu.exec)('pkill -f florida');
         if (errno === 0) updateStatus(false);
         else throw new Error('Server not running');
     } catch (error) {
         (0, _kernelsu.toast)(`Failed to stop server: ${error.message}`);
     }
 }
+// Handle stop warning modal
 toggleBtn.addEventListener('click', async ()=>{
     const port = portInput.value || '27042';
     const customParams = customParamsInput.value;
     if (!isServerRunning) await startServer(port, customParams);
-    else await stopServer();
+    else warningDialog.style.display = 'flex';
+});
+cancelStop.addEventListener('click', ()=>{
+    warningDialog.style.display = 'none';
+});
+confirmStop.addEventListener('click', async ()=>{
+    warningDialog.style.display = 'none';
+    await stopServer();
 });
 // Initial status check
 checkServerStatus();
-// Add periodic status checks
 setInterval(checkServerStatus, 500);
 
 },{"kernelsu":"aODNV"}],"aODNV":[function(require,module,exports,__globalThis) {
@@ -772,6 +792,6 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["bhaBe","845GS"], "845GS", "parcelRequire94c2")
+},{}]},["1MVUb","htmOg"], "htmOg", "parcelRequire94c2")
 
-//# sourceMappingURL=index.f32f0862.js.map
+//# sourceMappingURL=index.8448d9c5.js.map

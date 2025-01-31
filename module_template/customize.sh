@@ -65,6 +65,7 @@ unzip -qq -o "$ZIPFILE" 'module.prop' -d "$MODPATH"
 unzip -qq -o "$ZIPFILE" 'post-fs-data.sh' -d "$MODPATH"
 unzip -qq -o "$ZIPFILE" 'service.sh' -d "$MODPATH"
 unzip -qq -o "$ZIPFILE" 'uninstall.sh' -d "$MODPATH"
+unzip -qq -o "$ZIPFILE" 'webroot/*' -d "$MODPATH"
 
 mkdir -p "$MODPATH/system/bin"
 

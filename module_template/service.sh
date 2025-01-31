@@ -2,7 +2,7 @@
 
 DEBUG=false
 MODDIR=${0%/*}
-MODULE_PROP="/data/adb/magisk_modules/magisk-hluda/module.prop"
+MODULE_PROP="/data/adb/modules/magisk-hluda/module.prop"
 
 # Wait for boot completion
 while [ "$(getprop sys.boot_completed)" != 1 ]; do

@@ -5,10 +5,13 @@ const statusText = document.getElementById('serverStatusText');
 const toggleBtn = document.getElementById('toggleServerBtn');
 const portInput = document.getElementById('portInput');
 const customParamsInput = document.getElementById('customParams');
+const warningDialog = document.getElementById('warningDialog');
+const cancelStop = document.getElementById('cancelStop');
+const confirmStop = document.getElementById('confirmStop');
 
 let isServerRunning = false;
 
-const MODULE_PROP_PATH = '/data/adb/magisk_modules/magisk-hluda/module.prop';
+const MODULE_PROP_PATH = '/data/adb/modules/magisk-hluda/module.prop';
 
 async function updateModulePropStatus(running) {
     const status = running ? 'Running ✅' : 'Stopped ❌';
@@ -33,7 +36,6 @@ function updateStatus(running) {
     updateModulePropStatus(running);
 }
 
-
 async function checkServerStatus() {
     try {
         // More precise process matching with full path
@@ -47,12 +49,10 @@ async function checkServerStatus() {
 
 async function startServer(port, customParams) {
     const baseCommand = `florida -l 127.0.0.1:${port}`;
-    // Added output redirection and background operator
     const fullCommand = (customParams ? `${baseCommand} ${customParams}` : baseCommand) + ' >/dev/null 2>&1 &';
 
     try {
         await exec(fullCommand);
-        // Verify server actually started after short delay
         setTimeout(checkServerStatus, 500);
     } catch (error) {
         toast(`Failed to start server: ${error.message}`);
@@ -62,7 +62,6 @@ async function startServer(port, customParams) {
 
 async function stopServer() {
     try {
-        // More precise process killing with full path
         const {errno} = await exec('pkill -f florida');
         if (errno === 0) {
             updateStatus(false);
@@ -74,6 +73,7 @@ async function stopServer() {
     }
 }
 
+// Handle stop warning modal
 toggleBtn.addEventListener('click', async () => {
     const port = portInput.value || '27042';
     const customParams = customParamsInput.value;
@@ -81,11 +81,19 @@ toggleBtn.addEventListener('click', async () => {
     if (!isServerRunning) {
         await startServer(port, customParams);
     } else {
-        await stopServer();
+        warningDialog.style.display = 'flex';
     }
+});
+
+cancelStop.addEventListener('click', () => {
+    warningDialog.style.display = 'none';
+});
+
+confirmStop.addEventListener('click', async () => {
+    warningDialog.style.display = 'none';
+    await stopServer();
 });
 
 // Initial status check
 checkServerStatus();
-// Add periodic status checks
 setInterval(checkServerStatus, 500);
