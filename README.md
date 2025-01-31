@@ -1,20 +1,32 @@
-## **Florida on Boot: Unleash Florida's Power with Enhanced Undetectability**
+## **Florida on Boot: Seamlessly Start Florida on Boot with Enhanced Stealth**
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Exo1i/MagiskHluda)
 ![GitHub downloads](https://img.shields.io/github/downloads/Exo1i/magiskhluda/total)
 
-**🌟 This a magisk module based on [Florida](https://github.com/Ylarod/Florida) which is a more
-undetectable version of [Frida](https://github.com/frida/frida/).**
+**🌟 This Magisk module is based on [Florida](https://github.com/Ylarod/Florida), a modified version of [Frida](https://github.com/frida/frida/) designed to be more undetectable.**
 
-**🌟 It basically sets up [Florida](https://github.com/Ylarod/Florida) to start on boot for you.**
+**🌟 It ensures that Florida automatically starts on boot for you.**
 
-## **Meet your stealthy companion:** ️‍
+## **New Web UI for Easier Control**  
 
-- **Powerful toolkit for dynamic analysis, reverse engineering, and security testing.**
-- **Florida takes it to the next level with a more undetectable frida-server for Android.**
-- **Stay under the radar while you explore and manipulate apps like a pro.**
+I’ve added a **web-based user interface** that allows for easier control of the Florida server. The Web UI includes:
 
-## **Supported Architectures:** ️
+- A **start/stop server** button.
+- Access to the **command usage documentation**.
+- A display for **server status** and input for additional parameters.
+
+This Web UI simplifies the management of the Florida server. It allows you to start/stop the server and also provide extra parameters without needing a terminal.
+
+## **System UI Crashes Warning**
+
+Please note that **stopping the Florida server may cause the System UI to crash**, which can result in a restart of the System UI. This issue is known, and it may cause temporary instability in the UI. Take care when stopping the server, and make sure to save any important work before doing so.
+
+## **Meet your companion:**
+
+- **Powerful tool for dynamic analysis, reverse engineering, and security testing.**
+- Florida is a more undetectable version of Frida-server for Android, offering you the ability to interact with and explore apps while remaining unnoticed.
+
+## **Supported Architectures:**
 
 - arm64
 - arm
@@ -23,45 +35,38 @@ undetectable version of [Frida](https://github.com/frida/frida/).**
 
 ## **Getting Started:**
 
-1. **Grab the latest release:**  Head over to the releases page and download the latest zip.
-2. **Install with Magisk:** ✨ Use Magisk to seamlessly install the module.
+1. **Download the latest release:** Head over to the releases page and download the latest zip.
+2. **Install via Magisk:** Use Magisk to install the module.
 
 ## **Always Up-to-Date:**
 
-- **Updates are checked every half a day.⚡**
+- **Updates are checked every half a day.**
 
-## **Troubleshooting:** 🩹
+## **Troubleshooting:**
 
-- Facing any issues? Check out
-  the [troubleshooting guide](https://github.com/Exo1i/MagiskHluda/blob/main/troubleshooting.md).
+- If you run into any issues, refer to the [troubleshooting guide](https://github.com/Exo1i/MagiskHluda/blob/main/troubleshooting.md).
 
-## **Building from Source:** ️
+## **Building from Source:**
 
-1. **Grab dependencies:**  Install rapidjson and restclient-cpp using [vcpkg](https://vcpkg.io/en/getting-started):
+1. **Install dependencies:** Install `rapidjson` and `restclient-cpp` using [vcpkg](https://vcpkg.io/en/getting-started):
    ```bash
    ./vcpkg install rapidjson restclient-cpp
+   ```
 
-2. **Run the code:** Run main.cpp in your preferred IDE (Clion or Visual Studio recommended).
+2. **Run the code:** Execute `main.cpp` in your preferred IDE (Clion or Visual Studio is recommended).
 
 ## **Credits:**
 
 - [StongR-Frida by hzzheyang](https://github.com/hzzheyang/strongR-frida-android)
 - [Florida](https://github.com/Ylarod/Florida)
-- Huge thanks to _magisk-frida: [https://github.com/ViRb3/magisk-frida](https://github.com/ViRb3/magisk-frida)_ as this
-  project is very similar to theirs, and also to this enhancement
-  request: [https://github.com/ViRb3/magisk-frida/issues/16](https://github.com/ViRb3/magisk-frida/issues/16) from 2021
-  on ViRb3's module.
+- Special thanks to _magisk-frida: [https://github.com/ViRb3/magisk-frida](https://github.com/ViRb3/magisk-frida)_ for inspiration, and to the enhancement request: [https://github.com/ViRb3/magisk-frida/issues/16](https://github.com/ViRb3/magisk-frida/issues/16).
 
-**Ready to explore with enhanced stealth? Get started with Florida today!**
+**Get started with Florida today and enjoy enhanced stealth for your dynamic analysis!**
 
 ## **Still Being Detected?**
 
-I'd recommend having a look at [ZygiskFrida](https://github.com/lico-n/ZygiskFrida).
+Consider looking into [ZygiskFrida](https://github.com/lico-n/ZygiskFrida) as an alternative.
 
 ## **Learning Journey:**
 
-This repo is my first semester brainchild. It's funny how we think we're experts after a few months, but then realize
-we're just toddlers with screwdrivers. No clue about CMake, linkers, or JSON in C++ when I started, but hey, I stumbled
-through it somehow!
-
-
+This project is my first semester project. It's been an interesting learning experience, and I've gained a lot of knowledge along the way.
