@@ -1,0 +1,46 @@
+body {
+  background-color: #f4f4f4;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.status-indicator {
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.status-running {
+  background-color: green;
+}
+
+.status-stopped {
+  background-color: red;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px;
+}
+
+button {
+  color: #fff;
+  cursor: pointer;
+  background-color: #007bff;
+  border: none;
+  padding: 10px;
+}
+
+button:disabled {
+  background-color: #ccc;
+}
+/*# sourceMappingURL=index.9ebbf35c.css.map */

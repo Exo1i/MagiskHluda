@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florida Server Control</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+<h1>Florida Server Control</h1>
+
+<div class="form-group">
+    <label>Server Status</label>
+    <span id="serverStatus" class="status-indicator status-stopped"></span>
+    <span id="serverStatusText">Stopped</span>
+</div>
+
+<div class="form-group">
+    <label for="portInput">Port</label>
+    <input type="number" id="portInput" value="27042" placeholder="Default: 27042">
+</div>
+
+<div class="form-group">
+    <label for="customParams">Custom Parameters</label>
+    <input type="text" id="customParams" placeholder="Optional additional parameters">
+</div>
+
+<button id="toggleServerBtn">Start Server</button>
+
+<script type="module" src="./index.js"></script>
+</body>
+</html>

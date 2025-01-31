@@ -110,7 +110,7 @@ void utils::createUpdateJson() {
     }
 
     // Convert version to version code (first two digits)
-    int numericVersionCode = std::stoi(versionCode.substr(0, versionCode.find('.'))) * 10;
+    int numericVersionCode = std::stoi(versionCode.substr(0, versionCode.find('.')));
 
     std::ofstream updateJson( "update.json");
     if (!updateJson) {
