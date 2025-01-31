@@ -8,18 +8,36 @@ const customParamsInput = document.getElementById('customParams');
 
 let isServerRunning = false;
 
+const MODULE_PROP_PATH = '/data/adb/magisk_modules/magisk-hluda/module.prop';
+
+async function updateModulePropStatus(running) {
+    const status = running ? 'Running ✅' : 'Stopped ❌';
+    try {
+        await exec(`sed -i "s/^description=.*/description=[${status}]/" ${MODULE_PROP_PATH}`);
+    } catch (error) {
+        console.error('Failed to update module.prop:', error);
+    }
+}
+
 function updateStatus(running) {
+    if (isServerRunning === running) return;
     isServerRunning = running;
+
+    // Update UI
     statusIndicator.classList.toggle('status-running', running);
     statusIndicator.classList.toggle('status-stopped', !running);
     statusText.textContent = running ? 'Running' : 'Stopped';
     toggleBtn.textContent = running ? 'Stop Server' : 'Start Server';
+
+    // Update module.prop
+    updateModulePropStatus(running);
 }
+
 
 async function checkServerStatus() {
     try {
         // More precise process matching with full path
-        const {errno} = await exec('pgrep -f "florida"');
+        const {errno} = await exec('pgrep -f florida');
         updateStatus(errno === 0);
     } catch (error) {
         console.error('Error checking server status:', error);
@@ -45,7 +63,7 @@ async function startServer(port, customParams) {
 async function stopServer() {
     try {
         // More precise process killing with full path
-        const {errno} = await exec('pkill -f "florida"');
+        const {errno} = await exec('pkill -f florida');
         if (errno === 0) {
             updateStatus(false);
         } else {
