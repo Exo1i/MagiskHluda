@@ -69,12 +69,16 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2bXRiDnABudZxI51uQjag00bb8j" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;CMake Application.MagiskHluda.executor&quot;: &quot;Run&quot;,
     &quot;CMake Debug.Project.executor&quot;: &quot;Debug&quot;,
@@ -102,6 +106,7 @@
       <recent name="$PROJECT_DIR$/base" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/base/OLD STUFF" />
     </key>
   </component>
@@ -130,7 +135,7 @@
       <workItem from="1727124940483" duration="17712000" />
       <workItem from="1727142769556" duration="314000" />
       <workItem from="1727143420273" duration="246000" />
-      <workItem from="1738326717152" duration="8660000" />
+      <workItem from="1738326717152" duration="9324000" />
     </task>
     <task id="LOCAL-00001" summary="Init Repo">
       <option name="closed" value="true" />
@@ -332,7 +337,23 @@
       <option name="project" value="LOCAL" />
       <updated>1738334939470</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg">
+      <option name="closed" value="true" />
+      <created>1738335435135</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1738335435135</updated>
+    </task>
+    <task id="LOCAL-00027" summary="- reverted to florida&#10;- Added update.json&#10;- Created releases for each arch&#10;- Updated workflow to use cache for vcpkg">
+      <option name="closed" value="true" />
+      <created>1738335901658</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1738335901658</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -355,6 +376,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Init Repo" />
     <MESSAGE value="removed debug files" />
     <MESSAGE value="Merge branch 'main' of https://github.com/Exo1i/MagiskHluda&#10;&#10;# Conflicts:&#10;#&#9;.gitignore" />

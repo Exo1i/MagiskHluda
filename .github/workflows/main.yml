@@ -5,10 +5,11 @@ on:
 permissions:
   contents: write
 jobs:
-  setup:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Cache vcpkg packages
         uses: actions/cache@v3
         with:
@@ -18,6 +19,7 @@ jobs:
           key: ${{ runner.os }}-vcpkg-${{ hashFiles('**/vcpkg.json', '**/vcpkg-configuration.json') }}
           restore-keys: |
             ${{ runner.os }}-vcpkg-
+
       - name: Setup vcpkg if not cached
         run: |
           if [ ! -d "vcpkg" ]; then
@@ -27,11 +29,13 @@ jobs:
             ./vcpkg install rapidjson restclient-cpp
             cd ..
           fi
+
       - name: Build MagiskHluda
         run: |
           cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
           cmake --build build --config Release
           cp build/MagiskHluda .
+
       - name: Setup environment and run MagiskHluda
         run: |
           sudo apt install jq
@@ -41,41 +45,22 @@ jobs:
           echo "LATESTMODULETAG=${LATESTMODULETAG}" >> $GITHUB_ENV
           mkdir -p tmp/bin
           ./MagiskHluda
-          ls -la
-          ls -la ./tmp
-          echo "Setup completed"
-  build:
-    needs: setup
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch: [ arm, arm64, x86, x86_64 ]
-      fail-fast: true
-    steps:
-      - name: Create Release Archive for ${{ matrix.arch }}
-        run: |
-          ls -la ./tmp
-          FILENAME="florida-$([[ "${{ matrix.arch }}" == "x86_64" ]] && echo "x64" || echo "${{ matrix.arch }}").gz"
-          mkdir -p arch_release/tmp/bin
-          cp -r tmp/* arch_release/
-          cp "tmp/bin/$FILENAME" "arch_release/tmp/bin/"
-          (cd arch_release && zip -r "../Magisk-Florida-${{ matrix.arch }}-$LATESTFLORIDARELEASETAG.zip" .)
 
-  universal_release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Create universal zip package
+      - name: Prepare release archives
         run: |
+          for arch in arm arm64 x86 x86_64; do
+            FILENAME="florida-$([[ "$arch" == "x86_64" ]] && echo "x64" || echo "$arch").gz"
+            mkdir -p "arch_release_$arch/tmp/bin"
+            cp -r tmp/* "arch_release_$arch/"
+            cp "tmp/bin/$FILENAME" "arch_release_$arch/tmp/bin/"
+            (cd "arch_release_$arch" && zip -r "../Magisk-Florida-$arch-$LATESTFLORIDARELEASETAG.zip" .)
+          done
+          
+          # Universal package
           mkdir -p universal_release/tmp/bin
           cp -r tmp/* universal_release/
-          (cd universal_release && zip -r "../Magisk-Florida-Universal-${LATESTFLORIDARELEASETAG}.zip" .)
+          (cd universal_release && zip -r "../Magisk-Florida-Universal-$LATESTFLORIDARELEASETAG.zip" .)
 
-  release:
-    needs: universal_release
-    runs-on: ubuntu-latest
-    steps:
       - name: Release Packages
         uses: ncipollo/release-action@v1.13.0
         with:
