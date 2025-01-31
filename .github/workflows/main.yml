@@ -41,6 +41,8 @@ jobs:
           echo "LATESTMODULETAG=${LATESTMODULETAG}" >> $GITHUB_ENV
           mkdir -p tmp/bin
           ./MagiskHluda
+          ls -la
+          ls -la ./tmp
           echo "Setup completed"
   build:
     needs: setup
@@ -52,6 +54,7 @@ jobs:
     steps:
       - name: Create Release Archive for ${{ matrix.arch }}
         run: |
+          ls -la ./tmp
           FILENAME="florida-$([[ "${{ matrix.arch }}" == "x86_64" ]] && echo "x64" || echo "${{ matrix.arch }}").gz"
           mkdir -p arch_release/tmp/bin
           cp -r tmp/* arch_release/
