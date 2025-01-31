@@ -20,6 +20,8 @@ public:
 
 
     static void downloadServers();
+
+    static void createUpdateJson();
 };
 
 #endif //MAGISKHLUDA_UTILS_H

@@ -8,6 +8,7 @@ int main() {
     try {
         RestClient::init();
         utils::createModuleProps();
+        utils::createUpdateJson();
         utils::downloadServers();
         utils::copyModuleTemplate();
         RestClient::disable();

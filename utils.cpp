@@ -101,6 +101,30 @@ void utils::createModuleProps() {
                 << "updateJson=https://github.com/exo1i/magiskhluda/releases/latest/download/update.json";
 }
 
+void utils::createUpdateJson() {
+    std::string versionCode = latestTag;
+    // Remove potential pre-release part
+    size_t dashPos = versionCode.find('-');
+    if (dashPos != std::string::npos) {
+        versionCode = versionCode.substr(0, dashPos);
+    }
+
+    // Convert version to version code (first two digits)
+    int numericVersionCode = std::stoi(versionCode.substr(0, versionCode.find('.'))) * 10;
+
+    std::ofstream updateJson("update.json");
+    if (!updateJson) {
+        throw std::runtime_error("Failed to open update.json for writing");
+    }
+
+    updateJson << "{\n"
+               << R"(  "version": ")" << latestTag << "\",\n"
+               << "  \"versionCode\": " << numericVersionCode << ",\n"
+               << R"(  "zipUrl": "https://github.com/exo1i/magiskhluda/releases/download/)"
+               << latestTag << "/Magisk-Florida-Universal-" << latestTag << ".zip\""
+               << "}\n";
+}
+
 void utils::copyModuleTemplate() {
     const std::string basePath = "../base/";
     fs::copy(basePath, "tmp/", fs::copy_options::recursive);
