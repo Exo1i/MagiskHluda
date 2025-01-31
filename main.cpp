@@ -10,7 +10,6 @@ int main() {
         utils::createModuleProps();
         utils::createUpdateJson();
         utils::downloadServers();
-        utils::copyModuleTemplate();
         RestClient::disable();
         return 0;
     } catch (const std::exception &e) {

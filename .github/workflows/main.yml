@@ -43,24 +43,23 @@ jobs:
           LATESTMODULETAG=$(curl -s https://api.github.com/repos/Exo1i/MagiskHluda/releases/latest | jq -r '.tag_name')
           echo "LATESTFLORIDARELEASETAG=${LATESTFLORIDARELEASETAG}" >> $GITHUB_ENV
           echo "LATESTMODULETAG=${LATESTMODULETAG}" >> $GITHUB_ENV
-          mkdir -p tmp/bin
           ./MagiskHluda
 
       - name: Prepare release archives
         run: |
           for arch in arm arm64 x86 x86_64; do
             FILENAME="florida-$([[ "$arch" == "x86_64" ]] && echo "x64" || echo "$arch").gz"
-            mkdir -p "arch_release_$arch/tmp/bin"
-            cp -r tmp/* "arch_release_$arch/"
-            cp "tmp/bin/$FILENAME" "arch_release_$arch/tmp/bin/"
-            # Remove all other .gz files from the bin directory
-            find "arch_release_$arch/tmp/bin/" -name "*.gz" ! -name "$FILENAME" -delete
+            mkdir -p "arch_release_$arch/bin"
+            cp -r module_template/* "arch_release_$arch/"
+            cp "bin/$FILENAME" "arch_release_$arch/bin/"
             (cd "arch_release_$arch" && zip -r "../Magisk-Florida-$arch-$LATESTFLORIDARELEASETAG.zip" .)
           done
           
           # Universal package
-          mkdir -p universal_release/tmp/bin
-          cp -r tmp/* universal_release/
+          mkdir -p universal_release
+          cp -r module_template/* universal_release/
+          mkdir -p "universal_release/bin"
+          cp -r bin/* universal_release/bin/
           (cd universal_release && zip -r "../Magisk-Florida-Universal-$LATESTFLORIDARELEASETAG.zip" .)
 
       - name: Release Packages

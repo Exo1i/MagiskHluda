@@ -12,7 +12,7 @@ class utils {
 public:
     static string latestTag;
 
-    static void copyModuleTemplate();
+
 
     static void createModuleProps();
 

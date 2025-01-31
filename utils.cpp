@@ -10,6 +10,7 @@
 #include "utils.h"
 
 namespace fs = std::filesystem;
+const std::string basePath = "./module_template/";
 
 std::string utils::getRecentTag() {
     const std::string url = "https://api.github.com/repos/hzzheyang/strongR-frida-android/releases/latest";
@@ -49,9 +50,9 @@ void download(const std::string &aarch) {
     }
     std::string filename;
     if (aarch == "x86_64")
-        filename = "tmp/bin/florida-x64.gz";
+        filename = "bin/florida-x64.gz";
     else
-        filename = "tmp/bin/florida-" + aarch + ".gz";
+        filename = "bin/florida-" + aarch + ".gz";
 
     std::ofstream downloadedFile(filename, std::ios::out | std::ios::binary);
 
@@ -71,7 +72,7 @@ void download(const std::string &aarch) {
 }
 
 void utils::downloadServers() {
-    fs::create_directories("tmp/bin");
+    fs::create_directories("./bin");
     const std::vector<std::string> archs = {"arm", "arm64", "x86", "x86_64"};
 
     for (const auto &aarch: archs) {
@@ -85,8 +86,7 @@ void utils::downloadServers() {
 }
 
 void utils::createModuleProps() {
-    fs::create_directory("tmp");
-    std::ofstream moduleProps("tmp/module.prop");
+    std::ofstream moduleProps(basePath + "module.prop");
 
     if (!moduleProps) {
         throw std::runtime_error("Failed to open module.prop for writing");
@@ -112,7 +112,7 @@ void utils::createUpdateJson() {
     // Convert version to version code (first two digits)
     int numericVersionCode = std::stoi(versionCode.substr(0, versionCode.find('.'))) * 10;
 
-    std::ofstream updateJson("update.json");
+    std::ofstream updateJson(basePath + "update.json");
     if (!updateJson) {
         throw std::runtime_error("Failed to open update.json for writing");
     }
@@ -125,7 +125,3 @@ void utils::createUpdateJson() {
                << "}\n";
 }
 
-void utils::copyModuleTemplate() {
-    const std::string basePath = "./base/";
-    fs::copy(basePath, "tmp/", fs::copy_options::recursive);
-}
