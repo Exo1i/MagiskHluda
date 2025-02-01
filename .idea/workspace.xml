@@ -21,7 +21,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aefada74-1f27-4131-b05b-d6a8266be2c2" name="Changes" comment="bug fixes, smh">
+      <change afterPath="$PROJECT_DIR$/module_template/webroot/index.bf20bada.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webroot/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webroot/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/main.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/META-INF/com/google/android/update-binary" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/META-INF/com/google/android/updater-script" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/customize.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/post-fs-data.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/service.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/uninstall.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/module_template/customize.sh" beforeDir="false" afterPath="$PROJECT_DIR$/module_template/customize.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module_template/service.sh" beforeDir="false" afterPath="$PROJECT_DIR$/module_template/service.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module_template/webroot/index.8448d9c5.js" beforeDir="false" afterPath="$PROJECT_DIR$/module_template/webroot/index.66d7f968.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module_template/webroot/index.e45a67a2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/module_template/webroot/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/module_template/webroot/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webroot/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webroot/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/webroot/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webroot/index.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,30 +101,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;CMake Application.MagiskHluda.executor&quot;: &quot;Run&quot;,
-    &quot;CMake Debug.Project.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;testing&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/exo/CLionProjects/MagiskHluda22/module_template/webroot&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "CMake Application.MagiskHluda.executor": "Run",
+    "CMake Debug.Project.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/exo/CLionProjects/MagiskHluda21/module_template/webroot",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "structure.view.defaults.are.configured": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/module_template/webroot" />
@@ -122,12 +141,12 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="MagiskHluda" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MagiskHluda" TARGET_NAME="MagiskHluda" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MagiskHluda" RUN_TARGET_NAME="MagiskHluda">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="MagiskHluda" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MagiskHluda" TARGET_NAME="MagiskHluda" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MagiskHluda" RUN_TARGET_NAME="MagiskHluda">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>

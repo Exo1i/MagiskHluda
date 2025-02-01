@@ -1,4 +1,4 @@
-## **Florida on Boot: Seamlessly Start Florida on Boot with Enhanced Stealth**
+## **Florida on Boot: Seamlessly Start a More Undetectable Frida-server on Boot**
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Exo1i/MagiskHluda)
 ![GitHub downloads](https://img.shields.io/github/downloads/Exo1i/magiskhluda/total)

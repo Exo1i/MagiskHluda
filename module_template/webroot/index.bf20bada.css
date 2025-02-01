@@ -1,0 +1,211 @@
+:root {
+  --primary-color: #007bff;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --secondary-color: #6c757d;
+  --background-color: #1e1e2e;
+  --card-background: #2a2a3a;
+  --text-color: #d4d4d4;
+  --border-radius: 8px;
+  --input-background: #363646;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--background-color);
+  color: var(--text-color);
+  padding: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 24px;
+}
+
+h2 {
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.card {
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 6px #0000001a;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: 500;
+  display: block;
+}
+
+.status-group {
+  align-items: center;
+  gap: 10px;
+  display: flex;
+}
+
+.status-indicator {
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+}
+
+.status-running {
+  background-color: var(--success-color);
+  box-shadow: 0 0 8px var(--success-color);
+}
+
+.status-stopped {
+  background-color: var(--danger-color);
+  box-shadow: 0 0 8px var(--danger-color);
+}
+
+.input {
+  border-radius: var(--border-radius);
+  background: var(--input-background);
+  width: 100%;
+  color: var(--text-color);
+  border: 1px solid #444;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.button-group {
+  flex-wrap: wrap;
+  gap: 10px;
+  display: flex;
+}
+
+.btn {
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  flex: 1;
+  min-width: 120px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all .2s;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+}
+
+.btn-success {
+  background: var(--success-color);
+}
+
+.btn-danger {
+  background: var(--danger-color);
+}
+
+.btn-secondary {
+  background: var(--secondary-color);
+}
+
+.btn:hover {
+  opacity: .9;
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.modal {
+  z-index: 1000;
+  background: #00000080;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.modal-content {
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  padding: 24px;
+}
+
+.modal-content h2 {
+  margin-bottom: 16px;
+}
+
+.modal-content p {
+  margin-bottom: 24px;
+}
+
+.modal-buttons {
+  justify-content: center;
+  gap: 10px;
+  display: flex;
+}
+
+.command-help {
+  background: var(--input-background);
+  border-radius: var(--border-radius);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 16px;
+  font-size: 14px;
+  overflow-x: auto;
+}
+
+@media (width <= 480px) {
+  body {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 16px;
+  }
+}
+/*# sourceMappingURL=index.bf20bada.css.map */

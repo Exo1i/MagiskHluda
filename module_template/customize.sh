@@ -68,6 +68,14 @@ unzip -qq -o "$ZIPFILE" 'uninstall.sh' -d "$MODPATH"
 unzip -qq -o "$ZIPFILE" 'webroot/*' -d "$MODPATH"
 mkdir -p "$MODPATH/system/bin"
 
+if ! test -f "$MODPATH/module.cfg"; then
+  {
+  echo "port=27042"
+  echo "parameters="
+  echo "status=1"
+   } >> "$MODPATH/module.cfg"
+fi
+
 # Handle architecture-specific files
 case "$ARCH" in
   arm)
@@ -88,7 +96,7 @@ case "$ARCH" in
 esac
 
 # Check if the specific arch binary exists
-if ! unzip -l "$ZIPFILE" "bin/$BINARY_FILE" &>/dev/null; then
+if ! unzip -l "$ZIPFILE" | grep -q "bin/$BINARY_FILE"; then
   ui_print "************************************"
   ui_print "! Binary not available for $ARCH arch"
   ui_print "! Please download the universal package"

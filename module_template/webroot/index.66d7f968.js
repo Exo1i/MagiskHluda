@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"1MVUb":[function(require,module,exports,__globalThis) {
+})({"l9lvc":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
 var HMR_USE_SSE = false;
-module.bundle.HMR_BUNDLE_ID = "b9191ab18448d9c5";
+module.bundle.HMR_BUNDLE_ID = "e071841066d7f968";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -595,11 +595,12 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
     }
 }
 
-},{}],"htmOg":[function(require,module,exports,__globalThis) {
+},{}],"h7OWo":[function(require,module,exports,__globalThis) {
 var _kernelsu = require("kernelsu");
 const statusIndicator = document.getElementById('serverStatus');
 const statusText = document.getElementById('serverStatusText');
 const toggleBtn = document.getElementById('toggleServerBtn');
+const saveSettingsBtn = document.getElementById('saveSettingsBtn');
 const portInput = document.getElementById('portInput');
 const customParamsInput = document.getElementById('customParams');
 const warningDialog = document.getElementById('warningDialog');
@@ -607,6 +608,65 @@ const cancelStop = document.getElementById('cancelStop');
 const confirmStop = document.getElementById('confirmStop');
 let isServerRunning = false;
 const MODULE_PROP_PATH = '/data/adb/modules/magisk-hluda/module.prop';
+const MODULE_SETTINGS_FILE = '/data/adb/modules/magisk-hluda/module.cfg';
+async function initializeConfigFile() {
+    try {
+        const status = isServerRunning ? 1 : 0;
+        const configContent = `port=${portInput.value}\nparameters=${customParamsInput.value}\nstatus=${status}`;
+        await (0, _kernelsu.exec)(`echo '${configContent}' > ${MODULE_SETTINGS_FILE}`);
+        console.log('Created module.cfg with default values');
+    } catch (error) {
+        console.error('Error creating module.cfg:', error);
+        (0, _kernelsu.toast)('Failed to initialize config file');
+    }
+}
+async function saveSettings() {
+    try {
+        // Validate port number
+        const portNum = parseInt(portInput.value);
+        if (isNaN(portNum) || portNum < 1 || portNum > 65535) {
+            (0, _kernelsu.toast)('Invalid port number. Using default port 27042');
+            portInput.value = '27042';
+        }
+        // Check if config file exists
+        const { errno } = await (0, _kernelsu.exec)(`test -f ${MODULE_SETTINGS_FILE}`);
+        if (errno !== 0) {
+            await initializeConfigFile();
+            return;
+        }
+        // Save port setting
+        await (0, _kernelsu.exec)(`sed -i "s/^port=.*/port=${portInput.value}/" ${MODULE_SETTINGS_FILE}`);
+        // Save parameters setting (escape special characters)
+        const escapedParams = customParamsInput.value.replace(/\//g, '\\/').replace(/'/g, "\\'").replace(/"/g, '\\"');
+        await (0, _kernelsu.exec)(`sed -i "s/^parameters=.*/parameters=${escapedParams}/" ${MODULE_SETTINGS_FILE}`);
+        // Update status
+        const currentStatus = isServerRunning ? 1 : 0;
+        await (0, _kernelsu.exec)(`sed -i "s/^status=.*/status=${currentStatus}/" ${MODULE_SETTINGS_FILE}`);
+        (0, _kernelsu.toast)('Settings saved successfully');
+    } catch (error) {
+        console.error('Failed to save settings:', error);
+        (0, _kernelsu.toast)(`Failed to save settings: ${error.message}`);
+    }
+}
+async function loadSettings() {
+    try {
+        // Check if config file exists
+        const { errno } = await (0, _kernelsu.exec)(`test -f ${MODULE_SETTINGS_FILE}`);
+        if (errno !== 0) {
+            await initializeConfigFile();
+            return;
+        }
+        // Read current settings
+        const { stdout: portValue } = await (0, _kernelsu.exec)(`grep "^port=" ${MODULE_SETTINGS_FILE} | cut -d= -f2`);
+        const { stdout: paramsValue } = await (0, _kernelsu.exec)(`grep "^parameters=" ${MODULE_SETTINGS_FILE} | cut -d= -f2-`);
+        // Update input fields
+        portInput.value = portValue.trim() || '27042';
+        customParamsInput.value = paramsValue.trim() || '';
+    } catch (error) {
+        console.error('Failed to load settings:', error);
+        (0, _kernelsu.toast)(`Failed to load settings: ${error.message}`);
+    }
+}
 async function updateModulePropStatus(running) {
     const status = running ? "Running \u2705" : "Stopped \u274C";
     try {
@@ -618,17 +678,16 @@ async function updateModulePropStatus(running) {
 function updateStatus(running) {
     if (isServerRunning === running) return;
     isServerRunning = running;
-    // Update UI
     statusIndicator.classList.toggle('status-running', running);
     statusIndicator.classList.toggle('status-stopped', !running);
     statusText.textContent = running ? 'Running' : 'Stopped';
     toggleBtn.textContent = running ? 'Stop Server' : 'Start Server';
-    // Update module.prop
+    toggleBtn.classList.toggle('btn-danger', running);
+    toggleBtn.classList.toggle('btn-primary', !running);
     updateModulePropStatus(running);
 }
 async function checkServerStatus() {
     try {
-        // More precise process matching with full path
         const { errno } = await (0, _kernelsu.exec)('pgrep -f florida');
         updateStatus(errno === 0);
     } catch (error) {
@@ -637,11 +696,20 @@ async function checkServerStatus() {
     }
 }
 async function startServer(port, customParams) {
-    const baseCommand = `florida -l 127.0.0.1:${port}`;
-    const fullCommand = (customParams ? `${baseCommand} ${customParams}` : baseCommand) + ' >/dev/null 2>&1 &';
+    const baseCommand = `florida -D -l 127.0.0.1:${port}`;
+    const fullCommand = customParams ? `${baseCommand} ${customParams}` : baseCommand;
     try {
-        await (0, _kernelsu.exec)(fullCommand);
+        const { errno, stderr } = await (0, _kernelsu.exec)(fullCommand);
+        if (errno !== 0 || stderr.trim()) {
+            // Either command failed or there was error output
+            const errorMsg = stderr.trim() || 'Unknown error occurred';
+            (0, _kernelsu.toast)(`Failed to start server: ${errorMsg}`);
+            updateStatus(false);
+            return;
+        }
+        // If we got here, command succeeded
         setTimeout(checkServerStatus, 500);
+        (0, _kernelsu.toast)('Server started successfully');
     } catch (error) {
         (0, _kernelsu.toast)(`Failed to start server: ${error.message}`);
         updateStatus(false);
@@ -650,31 +718,39 @@ async function startServer(port, customParams) {
 async function stopServer() {
     try {
         const { errno } = await (0, _kernelsu.exec)('pkill -f florida');
-        if (errno === 0) updateStatus(false);
-        else throw new Error('Server not running');
+        if (errno === 0) {
+            updateStatus(false);
+            (0, _kernelsu.toast)('Server stopped successfully');
+        } else throw new Error('Server not running');
     } catch (error) {
         (0, _kernelsu.toast)(`Failed to stop server: ${error.message}`);
     }
 }
-// Handle stop warning modal
+// Event Listeners
+saveSettingsBtn.addEventListener('click', saveSettings);
 toggleBtn.addEventListener('click', async ()=>{
     const port = portInput.value || '27042';
     const customParams = customParamsInput.value;
-    if (!isServerRunning) await startServer(port, customParams);
-    else warningDialog.style.display = 'flex';
+    if (!isServerRunning) {
+        await saveSettings();
+        await startServer(port, customParams);
+    } else warningDialog.style.display = 'flex';
 });
 cancelStop.addEventListener('click', ()=>{
     warningDialog.style.display = 'none';
 });
 confirmStop.addEventListener('click', async ()=>{
     warningDialog.style.display = 'none';
+    await saveSettings();
     await stopServer();
 });
-// Initial status check
-checkServerStatus();
-setInterval(checkServerStatus, 500);
+// Initialize
+loadSettings().then(()=>{
+    checkServerStatus();
+    setInterval(checkServerStatus, 500);
+});
 
-},{"kernelsu":"aODNV"}],"aODNV":[function(require,module,exports,__globalThis) {
+},{"kernelsu":"f0T4H"}],"f0T4H":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "exec", ()=>exec);
@@ -762,7 +838,7 @@ function toast(message) {
     ksu.toast(message);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jkq2p"}],"jkq2p":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"hZ54O"}],"hZ54O":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -792,6 +868,6 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["1MVUb","htmOg"], "htmOg", "parcelRequire94c2")
+},{}]},["l9lvc","h7OWo"], "h7OWo", "parcelRequire94c2")
 
-//# sourceMappingURL=index.8448d9c5.js.map
+//# sourceMappingURL=index.66d7f968.js.map
