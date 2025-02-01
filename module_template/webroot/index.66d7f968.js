@@ -696,7 +696,7 @@ async function checkServerStatus() {
     }
 }
 async function startServer(port, customParams) {
-    const baseCommand = `florida -D -l 127.0.0.1:${port}`;
+    const baseCommand = `florida -D -l 0.0.0.0:${port}`;
     const fullCommand = customParams ? `${baseCommand} ${customParams}` : baseCommand;
     try {
         const { errno, stderr } = await (0, _kernelsu.exec)(fullCommand);

@@ -37,7 +37,7 @@ if [ -f "$MODULE_CFG" ]; then
        # Start service if not running
        if ! pgrep -x "florida" > /dev/null; then
            # Build command with port and parameters
-           CMD="florida -D -l 127.0.0.1:$port"
+           CMD="florida -D -l 0.0.0.0:$port"
 
            # Add additional parameters if specified
            if [ -n "$parameters" ]; then
