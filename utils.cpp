@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <vector>
 #include <chrono>
+#include <algorithm>
 #include "restclient-cpp/connection.h"
 #include "restclient-cpp/restclient.h"
 #include "rapidjson/document.h"
@@ -92,34 +93,29 @@ void utils::createModuleProps() {
         throw std::runtime_error("Failed to open module.prop for writing");
     }
 
+    string versionCode = latestTag;
+    versionCode.erase(std::remove(versionCode.begin(), versionCode.end(), '.'), versionCode.end());
     moduleProps << "id=magisk-hluda\n"
                 << "name=Frida(Florida) Server on Boot\n"
                 << "version=" << latestTag.substr(0, latestTag.find('-')) << '\n'
-                << "versionCode=" << latestTag.substr(0, latestTag.find('.')) << '\n'
+                << "versionCode=" << versionCode << '\n'
                 << "author=The Community - Ylarod - Exo1i\n"
                 << "description=Runs a stealthier frida-server on boot\n"
                 << "updateJson=https://github.com/exo1i/magiskhluda/releases/latest/download/update.json";
 }
 
 void utils::createUpdateJson() {
-    std::string versionCode = latestTag;
-    // Remove potential pre-release part
-    size_t dashPos = versionCode.find('-');
-    if (dashPos != std::string::npos) {
-        versionCode = versionCode.substr(0, dashPos);
-    }
+    string versionCode = latestTag;
+    versionCode.erase(std::remove(versionCode.begin(), versionCode.end(), '.'), versionCode.end());
 
-    // Convert version to version code (first two digits)
-    int numericVersionCode = std::stoi(versionCode.substr(0, versionCode.find('.')));
-
-    std::ofstream updateJson( "update.json");
+    std::ofstream updateJson("update.json");
     if (!updateJson) {
         throw std::runtime_error("Failed to open update.json for writing");
     }
 
     updateJson << "{\n"
                << R"(  "version": ")" << latestTag << "\",\n"
-               << "  \"versionCode\": " << numericVersionCode << ",\n"
+               << "  \"versionCode\": " << versionCode << ",\n"
                << R"(  "zipUrl": "https://github.com/exo1i/magiskhluda/releases/download/)"
                << latestTag << "/Magisk-Florida-Universal-" << latestTag << ".zip\"\n"
                << "}\n";
