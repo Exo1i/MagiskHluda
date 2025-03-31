@@ -1,5 +1,4 @@
 name: CI
-
 on:
   workflow_dispatch:
   schedule:
@@ -18,7 +17,6 @@ jobs:
           LATESTMODULETAG=$(curl -s https://api.github.com/repos/Exo1i/MagiskHluda/releases/latest | jq -r '.tag_name')
           echo "LATESTFLORIDARELEASETAG=${LATESTFLORIDARELEASETAG}" >> $GITHUB_ENV
           echo "LATESTMODULETAG=${LATESTMODULETAG}" >> $GITHUB_ENV
-
       - name: Check if release needed
         id: check_release
         run: |
@@ -29,7 +27,6 @@ jobs:
           else
             echo "should_release=false" >> $GITHUB_OUTPUT
           fi
-
       - name: Cache vcpkg packages
         if: steps.check_release.outputs.should_release == 'true'
         uses: actions/cache@v3
@@ -40,7 +37,6 @@ jobs:
           key: ${{ runner.os }}-vcpkg-${{ hashFiles('**/vcpkg.json', '**/vcpkg-configuration.json') }}
           restore-keys: |
             ${{ runner.os }}-vcpkg-
-
       - name: Setup vcpkg if not cached
         if: steps.check_release.outputs.should_release == 'true'
         run: |
@@ -51,17 +47,37 @@ jobs:
             ./vcpkg install rapidjson restclient-cpp
             cd ..
           fi
-
       - name: Build MagiskHluda
         if: steps.check_release.outputs.should_release == 'true'
         run: |
           cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
           cmake --build build --config Release
           cp build/MagiskHluda .
-
       - name: Download all Florida servers from ylarod's repo
         if: steps.check_release.outputs.should_release == 'true'
         run: ./MagiskHluda
+
+      - name: Set up Node.js
+        if: steps.check_release.outputs.should_release == 'true'
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Bundle webpage with Vite
+        if: steps.check_release.outputs.should_release == 'true'
+        run: |
+          # Check if webroot directory exists
+          if [ ! -d "webroot" ]; then
+            echo "Error: webroot directory not found in the repository"
+            exit 1
+          fi
+          
+          # Create webroot directory in module_template if it doesn't exist
+          mkdir -p module_template/webroot
+          
+          # Run Vite build directly with npx
+          cd webroot
+          npm i
+          npx vite build
 
       - name: Prepare release archives
         if: steps.check_release.outputs.should_release == 'true'
@@ -80,7 +96,6 @@ jobs:
           mkdir -p "universal_release/bin"
           cp -r bin/* universal_release/bin/
           (cd universal_release && zip -r "../Magisk-Florida-Universal-$LATESTFLORIDARELEASETAG.zip" .)
-
       - name: Release Packages
         if: steps.check_release.outputs.should_release == 'true'
         uses: ncipollo/release-action@v1.13.0
