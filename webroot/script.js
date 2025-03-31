@@ -148,7 +148,8 @@ async function startServer(port, customParams) {
 
 async function stopServer() {
     try {
-        const {errno} = await exec('pkill -f florida');
+        // frida doesn't respond to sigterm properly, so sending sigkill
+        const {errno} = await exec('pkill -SIGKILL -f florida');
         if (errno === 0) {
             updateStatus(false);
             toast('Server stopped successfully');
