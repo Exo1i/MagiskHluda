@@ -131,7 +131,7 @@ void utils::createUpdateJson()
         << R"(  "version": ")" << latestTag << "\",\n"
         << "  \"versionCode\": " << versionCode << ",\n"
         << R"(  "zipUrl": "https://github.com/exo1i/magiskhluda/releases/download/)"
-        << latestTag << "/Magisk-Florida-Universal-" << latestTag << ".zip\"\n"
+        << latestTag << "/Magisk-Florida-Universal-" << latestTag << ".zip\",\n"
         << R"(  "changelog": "https://frida.re/news")"
-        << "}\n";
+        << "\n}\n";
 }
