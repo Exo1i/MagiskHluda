@@ -1,72 +1,73 @@
-## **Florida on Boot: Seamlessly Start a More Undetectable Frida-server on Boot**
+# **Florida on Boot: Seamlessly Start a More Undetectable Frida-server on Boot**
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Exo1i/MagiskHluda)
 ![GitHub downloads](https://img.shields.io/github/downloads/Exo1i/magiskhluda/total)
 
-**🌟 This Magisk module is based on [Florida](https://github.com/Ylarod/Florida), a modified version of [Frida](https://github.com/frida/frida/) designed to be more undetectable.**
+## **Overview**
 
-**🌟 It ensures that Florida automatically starts on boot for you.**
+This Magisk module is based on [Florida](https://github.com/Ylarod/Florida), a modified version of [Frida](https://github.com/frida/frida/) designed to be more undetectable. It ensures that Florida automatically starts on boot, providing a seamless experience for security testing and reverse engineering.
 
-## **New Web UI for Easier Control**  
+## **New Web UI for Easier Control**
 
-I’ve added a **web-based user interface** that allows for easier control of the Florida server. The Web UI includes:
+A **web-based user interface** has been added, making it easier to manage the Florida server:
 
-- A **start/stop server** button.
-- Access to the **command usage documentation**.
-- A display for **server status** and input for additional parameters.
+- **Start/Stop Server** button.
+- Access to **command usage documentation**.
+- Display for **server status**.
+- Input for **custom parameters**.
 
-This Web UI simplifies the management of the Florida server. It allows you to start/stop the server and also provide extra parameters without needing a terminal.
+This Web UI simplifies the management of the Florida server, allowing you to interact with it without needing a terminal.
 
 ## **System UI Crashes Warning**
 
-Please note that **stopping the Florida server may cause the System UI to crash**, which can result in a restart of the System UI. This issue is known, and it may cause temporary instability in the UI. Take care when stopping the server, and make sure to save any important work before doing so.
+Stopping the Florida server **may cause the System UI to crash**, leading to a restart of the UI. This is a known issue and may cause temporary instability. Be cautious and save any important work before stopping the server.
 
-## **Meet your companion:**
+## **Features & Benefits**
 
-- **Powerful tool for dynamic analysis, reverse engineering, and security testing.**
-- Florida is a more undetectable version of Frida-server for Android, offering you the ability to interact with and explore apps while remaining unnoticed.
+- **Powerful tool** for dynamic analysis, reverse engineering, and security testing.
+- **Enhanced stealth**, making Florida a more undetectable version of Frida-server for Android.
+- **Effortless interaction**, enabling exploration of apps while remaining unnoticed.
 
-## **Supported Architectures:**
+## **Supported Architectures**
 
 - arm64
 - arm
 - x86
 - x86_64
 
-## **Getting Started:**
+## **Getting Started**
 
-1. **Download the latest release:** Head over to the releases page and download the latest zip.
-2. **Install via Magisk:** Use Magisk to install the module.
+1. **Download the latest release:** Visit the [Releases](https://github.com/Exo1i/MagiskHluda/releases) page and download the latest ZIP file.
+2. **Install via Magisk:** Use Magisk to install the module effortlessly.
 
-## **Always Up-to-Date:**
+## **Automatic Updates**
 
-- **Updates are checked every half a day.**
+- **Updates are checked every 12 hours**, ensuring you always have the latest version.
 
-## **Troubleshooting:**
+## **Troubleshooting**
 
-- If you run into any issues, refer to the [troubleshooting guide](https://github.com/Exo1i/MagiskHluda/blob/main/troubleshooting.md).
+If you encounter any issues, refer to the [Troubleshooting Guide](https://github.com/Exo1i/MagiskHluda/blob/main/troubleshooting.md).
 
-## **Building from Source:**
+## **Building from Source**
 
 1. **Install dependencies:** Install `rapidjson` and `restclient-cpp` using [vcpkg](https://vcpkg.io/en/getting-started):
    ```bash
    ./vcpkg install rapidjson restclient-cpp
    ```
+2. **Run the code:** Execute `main.cpp` in your preferred IDE (CLion or Visual Studio is recommended).
 
-2. **Run the code:** Execute `main.cpp` in your preferred IDE (Clion or Visual Studio is recommended).
+## **Credits**
 
-## **Credits:**
-
-- [StongR-Frida by hzzheyang](https://github.com/hzzheyang/strongR-frida-android)
+Special thanks to:
+- [StrongR-Frida by hzzheyang](https://github.com/hzzheyang/strongR-frida-android)
 - [Florida](https://github.com/Ylarod/Florida)
-- Special thanks to _magisk-frida: [https://github.com/ViRb3/magisk-frida](https://github.com/ViRb3/magisk-frida)_ for inspiration, and to the enhancement request: [https://github.com/ViRb3/magisk-frida/issues/16](https://github.com/ViRb3/magisk-frida/issues/16).
-
-**Get started with Florida today and enjoy enhanced stealth for your dynamic analysis!**
+- [magisk-frida by ViRb3](https://github.com/ViRb3/magisk-frida), particularly the enhancement request: [Issue #16](https://github.com/ViRb3/magisk-frida/issues/16)
 
 ## **Still Being Detected?**
 
-Consider looking into [ZygiskFrida](https://github.com/lico-n/ZygiskFrida) as an alternative.
+If Florida is still being detected, consider using [ZygiskFrida](https://github.com/lico-n/ZygiskFrida) as an alternative.
 
-## **Learning Journey:**
+## **Learning Journey**
 
-This project is my first semester project. It's been an interesting learning experience, and I've gained a lot of knowledge along the way.
+This project is my **first semester project**, and it has been an invaluable learning experience. I have gained significant knowledge and skills along the way.
+
