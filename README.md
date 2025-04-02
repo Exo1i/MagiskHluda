@@ -20,13 +20,12 @@ This Web UI simplifies the management of the Florida server, allowing you to int
 
 ## **System UI Crashes Warning**
 
-Stopping the Florida server **may cause the System UI to crash**, leading to a restart of the UI. This is a known issue and may cause temporary instability. Be cautious and save any important work before stopping the server.
+Stopping the Florida server **may cause the System UI to crash**. This is a known issue and may cause temporary instability. Be cautious and save any important work before stopping the server.
 
 ## **Features & Benefits**
 
 - **Powerful tool** for dynamic analysis, reverse engineering, and security testing.
 - **Enhanced stealth**, making Florida a more undetectable version of Frida-server for Android.
-- **Effortless interaction**, enabling exploration of apps while remaining unnoticed.
 
 ## **Supported Architectures**
 
@@ -37,8 +36,8 @@ Stopping the Florida server **may cause the System UI to crash**, leading to a r
 
 ## **Getting Started**
 
-1. **Download the latest release:** Visit the [Releases](https://github.com/Exo1i/MagiskHluda/releases) page and download the latest ZIP file.
-2. **Install via Magisk:** Use Magisk to install the module effortlessly.
+1. **Download the latest release:** Visit the [Releases](https://github.com/Exo1i/MagiskHluda/releases) page and download the latest ZIP file that corresponds to your device's architecture or just use the universal package.
+2. **Install via Magisk/KSU/KSUN/APatch:** Use any root solution to install the module.
 
 ## **Automatic Updates**
 
