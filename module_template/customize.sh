@@ -87,8 +87,8 @@ case "$ARCH" in
   x86)
     BINARY_FILE="florida-x86.xz"
     ;;
-  x86_64)
-    BINARY_FILE="florida-x86.xz"
+  x64)
+    BINARY_FILE="florida-x64.gz"
     ;;
   *)
     abort "! Unsupported architecture: $ARCH"
