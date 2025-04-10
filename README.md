@@ -65,19 +65,19 @@ Special thanks to:
 ## **Change Frida Port - Manually**
 
 If you want to modify default port (27042) you can unzip the release an edit ./module_template/customize.sh.
-    ```bash
-    if ! test -f "$MODPATH/module.cfg"; then
-    {
-        echo "port=13337"
-    }
-    ```
+```bash
+if ! test -f "$MODPATH/module.cfg"; then
+{
+    echo "port=13337"
+}
+```
 
 After change you can connect to frida using
-    ```
-    adb forward tcp:13337 tcp:13337
-    frida.exe -H 127.0.0.1:13337 -f com.app
-    objection -N -h 192.168.0.x -p 13337 -g "App Name" explore
-    ```
+```
+adb forward tcp:13337 tcp:13337
+frida.exe -H 127.0.0.1:13337 -f com.app
+objection -N -h 192.168.0.x -p 13337 -g "App Name" explore
+```
 
 ## **Still Being Detected?**
 
