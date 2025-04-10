@@ -62,6 +62,21 @@ Special thanks to:
 - [Florida](https://github.com/Ylarod/Florida)
 - [magisk-frida by ViRb3](https://github.com/ViRb3/magisk-frida), particularly the enhancement request: [Issue #16](https://github.com/ViRb3/magisk-frida/issues/16)
 
+## **Change Frida Port - Manually**
+If you want to modify default port (27042) you can unzip the release an edit ./module_template/customize.sh.
+```bash
+if ! test -f "$MODPATH/module.cfg"; then
+  {
+  echo "port=13337"
+```
+After change you can connect to frida using
+```
+adb forward tcp:13337 tcp:13337
+frida.exe -H 127.0.0.1:13337 -f com.app
+objection -N -h 192.168.0.x -p 13337 -g "App Name" explore
+```
+
+
 ## **Still Being Detected?**
 
 If Florida is still being detected, consider using [ZygiskFrida](https://github.com/lico-n/ZygiskFrida) as an alternative.
