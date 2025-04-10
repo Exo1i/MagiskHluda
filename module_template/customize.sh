@@ -70,7 +70,7 @@ mkdir -p "$MODPATH/system/bin"
 
 if ! test -f "$MODPATH/module.cfg"; then
   {
-  echo "port=27042"
+  echo "port=13337"
   echo "parameters="
   echo "status=1"
    } >> "$MODPATH/module.cfg"
