@@ -62,6 +62,15 @@ Special thanks to:
 - [Florida](https://github.com/Ylarod/Florida)
 - [magisk-frida by ViRb3](https://github.com/ViRb3/magisk-frida), particularly the enhancement request: [Issue #16](https://github.com/ViRb3/magisk-frida/issues/16)
 
+## **Contributors**
+
+Thanks to all contributors who have helped with this project!
+
+<a href="https://github.com/Exo1i/MagiskHluda/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Exo1i/MagiskHluda" />
+</a>
+
+
 ## **Still Being Detected?**
 
 If Florida is still being detected, consider using [ZygiskFrida](https://github.com/lico-n/ZygiskFrida) as an alternative.
